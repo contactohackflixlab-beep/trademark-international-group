@@ -540,48 +540,61 @@
         <!-- Embedded Booking Form Card -->
         <div class="lg:col-span-8 bg-white rounded-2xl border border-slate-200 shadow-xl p-6 sm:p-10">
           <form id="inline-booking-form" onsubmit="handleBookingSubmit(event, 'inline')" class="space-y-6">
-            <div id="inline-context-box" class="hidden rounded-xl bg-sand-100 border border-gold-400/70 px-4 py-3 text-xs sm:text-sm text-navy-900 flex items-center justify-between gap-2">
-              <div>
-                <span class="font-bold">Selected Focus:</span>
-                <span id="inline-context-text"></span>
+            <!-- Context Pill (Hidden unless pre-filled from a Visa or Property) -->
+            <div id="inline-context-box" class="hidden rounded-xl bg-sand-100 border border-gold-400/70 px-4 py-3 flex items-center justify-between gap-4">
+              <div class="text-xs sm:text-sm text-navy-900">
+                <span class="font-bold">Selected Focus:</span> <span id="inline-context-text"></span>
               </div>
-              <button type="button" onclick="clearBookingContext()" class="text-xs font-semibold text-slate-500 hover:text-navy-900">Clear</button>
+              <button type="button" onclick="clearBookingContext()" class="text-xs font-semibold text-slate-500 hover:text-navy-900">
+                Clear
+              </button>
             </div>
 
-            <!-- Step 1: Service Type -->
+            <!-- Step 1: Service Selection -->
             <div>
-              <label class="block text-xs font-bold uppercase tracking-wider text-navy-900 mb-2">1. Select Service Focus *</label>
-              <div class="grid sm:grid-cols-2 gap-2.5">
-                <label class="cursor-pointer">
-                  <input type="radio" name="inline_service" value="Legal Services & Visa Processing" checked class="peer sr-only" />
-                  <span class="block px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium border border-slate-200 bg-sand-50 text-slate-700 peer-checked:bg-navy-900 peer-checked:text-gold-400 peer-checked:border-navy-900 transition-all">
-                    Legal Services &amp; Visa Processing
-                  </span>
+              <label class="block text-xs font-bold uppercase tracking-wider text-navy-900 mb-3">
+                1. Select Primary Service Focus *
+              </label>
+              <div class="grid sm:grid-cols-2 gap-3">
+                <label class="relative flex items-start gap-3 p-4 rounded-xl border border-slate-200 hover:border-navy-900 cursor-pointer transition-all has-[:checked]:border-navy-900 has-[:checked]:bg-sand-50">
+                  <input type="radio" name="inline_service" value="Legal Services & Visa Processing" checked class="mt-1 accent-navy-900" />
+                  <div>
+                    <span class="block text-sm font-bold text-navy-900">Legal Services &amp; Visa Processing</span>
+                    <span class="block text-xs text-slate-500 mt-0.5">Residency, apostilles, banking &amp; corporate law</span>
+                  </div>
                 </label>
-                <label class="cursor-pointer">
-                  <input type="radio" name="inline_service" value="Full Relocation Logistics & Scouting Tours" class="peer sr-only" />
-                  <span class="block px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium border border-slate-200 bg-sand-50 text-slate-700 peer-checked:bg-navy-900 peer-checked:text-gold-400 peer-checked:border-navy-900 transition-all">
-                    Full Relocation &amp; Scouting Tours
-                  </span>
+
+                <label class="relative flex items-start gap-3 p-4 rounded-xl border border-slate-200 hover:border-navy-900 cursor-pointer transition-all has-[:checked]:border-navy-900 has-[:checked]:bg-sand-50">
+                  <input type="radio" name="inline_service" value="Full Relocation Logistics & Scouting Tours" class="mt-1 accent-navy-900" />
+                  <div>
+                    <span class="block text-sm font-bold text-navy-900">Full Relocation &amp; Scouting Tours</span>
+                    <span class="block text-xs text-slate-500 mt-0.5">Guided regional tours, logistics &amp; landing setup</span>
+                  </div>
                 </label>
-                <label class="cursor-pointer">
-                  <input type="radio" name="inline_service" value="House Hunting (Buy or Rent)" class="peer sr-only" />
-                  <span class="block px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium border border-slate-200 bg-sand-50 text-slate-700 peer-checked:bg-navy-900 peer-checked:text-gold-400 peer-checked:border-navy-900 transition-all">
-                    House Hunting (Buy or Rent)
-                  </span>
+
+                <label class="relative flex items-start gap-3 p-4 rounded-xl border border-slate-200 hover:border-navy-900 cursor-pointer transition-all has-[:checked]:border-navy-900 has-[:checked]:bg-sand-50">
+                  <input type="radio" name="inline_service" value="House Hunting (Buy or Rent)" class="mt-1 accent-navy-900" />
+                  <div>
+                    <span class="block text-sm font-bold text-navy-900">House Hunting (Buy or Rent)</span>
+                    <span class="block text-xs text-slate-500 mt-0.5">Residential acquisitions, leases &amp; title review</span>
+                  </div>
                 </label>
-                <label class="cursor-pointer">
-                  <input type="radio" name="inline_service" value="Land Acquisition & Due Diligence" class="peer sr-only" />
-                  <span class="block px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium border border-slate-200 bg-sand-50 text-slate-700 peer-checked:bg-navy-900 peer-checked:text-gold-400 peer-checked:border-navy-900 transition-all">
-                    Land Acquisition &amp; Due Diligence
-                  </span>
+
+                <label class="relative flex items-start gap-3 p-4 rounded-xl border border-slate-200 hover:border-navy-900 cursor-pointer transition-all has-[:checked]:border-navy-900 has-[:checked]:bg-sand-50">
+                  <input type="radio" name="inline_service" value="Land Acquisition & Due Diligence" class="mt-1 accent-navy-900" />
+                  <div>
+                    <span class="block text-sm font-bold text-navy-900">Land Acquisition &amp; Due Diligence</span>
+                    <span class="block text-xs text-slate-500 mt-0.5">Fincas, coastal lots, surveys &amp; ROP verification</span>
+                  </div>
                 </label>
               </div>
             </div>
 
             <!-- Step 2: Target Regions -->
             <div>
-              <label class="block text-xs font-bold uppercase tracking-wider text-navy-900 mb-2">2. Target Regions in Panama</label>
+              <label class="block text-xs font-bold uppercase tracking-wider text-navy-900 mb-3">
+                2. Target Panama Regions (Select one or more)
+              </label>
               <div class="flex flex-wrap gap-2">
                 <label class="cursor-pointer">
                   <input type="checkbox" name="inline_regions" value="Panama City" checked class="peer sr-only" />
@@ -1038,15 +1051,15 @@
         tags: ['Friendly Nations Eligible', 'Creek & River', 'Rolling Pasture'],
         gradient: 'from-emerald-900 via-teal-800 to-navy-900',
         images: [
-          './images/solano/1.jpg.jpeg',
-          './images/solano/2.jpg.jpeg',
-          './images/solano/3.jpg.jpeg',
-          './images/solano/4.jpg.jpeg',
-          './images/solano/5.jpg.jpeg',
-          './images/solano/6.jpg.jpeg',
-          './images/solano/7.jpg.jpeg',
-          './images/solano/8.jpg.jpeg',
-          './images/solano/9.jpg.jpeg'
+          './1.jpg.jpeg',
+          './2.jpg.jpeg',
+          './3.jpg.jpeg',
+          './4.jpg.jpeg',
+          './5.jpg.jpeg',
+          './6.jpg.jpeg',
+          './7.jpg.jpeg',
+          './8.jpg.jpeg',
+          './9.jpg.jpeg'
         ],
         description: 'Expansive agricultural and lifestyle acreage in Solano, Chiriqui, with a natural creek and small river on the property, mature shade trees, and multiple building sites.'
       }
