@@ -900,4 +900,794 @@
           </button>
           <button
             onclick="closeReceiptAndOpenPortal()"
-            class="flex-1 px-4 py-2.5 rounded-xl bg-navy-900 hover:bg-navy-800 text-gold-400 font-semibold text-xs sm:text
+            class="flex-1 px-4 py-2.5 rounded-xl bg-navy-900 hover:bg-navy-800 text-gold-400 font-semibold text-xs sm:text-sm transition-all"
+          >
+            View in Client Portal
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide-Over Client Portal Drawer ("My Saved & Bookings") -->
+  <div id="portal-drawer" class="fixed inset-0 z-50 hidden">
+    <div onclick="togglePortalDrawer(false)" class="absolute inset-0 bg-navy-950/60 backdrop-blur-xs"></div>
+    <aside class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-white shadow-2xl border-l border-slate-200 flex flex-col">
+      <!-- Drawer Header -->
+      <div class="bg-navy-900 text-white px-6 py-5 flex items-center justify-between">
+        <div>
+          <span class="text-[11px] font-semibold uppercase tracking-widest text-gold-400">Trademark Client Portal</span>
+          <h3 class="font-serif text-xl font-bold">My Bookings &amp; Shortlist</h3>
+        </div>
+        <button onclick="togglePortalDrawer(false)" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-navy-800" aria-label="Close Portal">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Drawer Tabs -->
+      <div class="grid grid-cols-2 border-b border-slate-200 bg-sand-50 text-xs font-semibold">
+        <button id="portal-tab-bookings" onclick="switchPortalTab('bookings')" class="py-3.5 border-b-2 border-navy-900 text-navy-900">
+          Appointments (<span id="tab-bookings-count">1</span>)
+        </button>
+        <button id="portal-tab-saved" onclick="switchPortalTab('saved')" class="py-3.5 border-b-2 border-transparent text-slate-500 hover:text-navy-900">
+          Saved Properties (<span id="tab-saved-count">0</span>)
+        </button>
+      </div>
+
+      <!-- Drawer Content Area -->
+      <div id="portal-content" class="flex-1 overflow-y-auto p-6 space-y-4">
+        <!-- Populated dynamically via JS -->
+      </div>
+
+      <!-- Drawer Footer -->
+      <div class="p-4 border-t border-slate-200 bg-sand-50 space-y-3">
+        <div class="rounded-xl bg-white border border-slate-200 p-3 text-xs space-y-1.5">
+          <p class="font-bold uppercase tracking-wider text-[10px] text-slate-500">Direct Concierge Assistance</p>
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <a href="tel:+50768637794" class="font-semibold text-navy-900 hover:text-gold-600">📞 +507 6863-7794</a>
+            <a href="https://wa.me/50768637794" target="_blank" rel="noopener noreferrer" class="font-semibold text-emerald-700 hover:underline">WhatsApp</a>
+          </div>
+          <a href="mailto:Trademarkintgroup@gmail.com" class="block font-medium text-slate-600 hover:text-navy-900 truncate">✉️ Trademarkintgroup@gmail.com</a>
+        </div>
+        <button
+          onclick="togglePortalDrawer(false); openBookingModal();"
+          class="w-full py-3 rounded-xl bg-navy-900 hover:bg-navy-800 text-gold-400 font-semibold text-sm transition-all"
+        >
+          + Schedule New Consultation
+        </button>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Application Data & Interactive Logic -->
+  <script>
+    // =========================================================================
+    // 1. CURATED DATA: PANAMA VISAS & RESIDENCY PROGRAMS
+    // =========================================================================
+    const VISA_PROGRAMS = [
+      {
+        id: 'friendly-nations',
+        name: 'Friendly Nations Visa',
+        badge: 'Most Popular',
+        category: 'permanent',
+        threshold: '$200,000 Real Estate / CD or Local Job',
+        processingTime: '4 – 6 Months',
+        residencyPath: '2-Year Provisional → Permanent Residency',
+        dependents: 'Spouse, children under 25 (students), and dependent parents',
+        summary: 'Available to citizens of 50+ treaty nations (USA, Canada, UK, EU, Australia, etc.) via a $200k Panama property purchase, bank CD, or Panamanian employment contract.',
+      },
+      {
+        id: 'pensionado',
+        name: 'Pensionado (Retiree) Visa',
+        badge: 'Lifetime Benefits',
+        category: 'permanent',
+        threshold: '$1,000 / mo Lifetime Pension (+$250/dependent)',
+        processingTime: '3 – 5 Months',
+        residencyPath: 'Immediate Permanent Residency',
+        dependents: 'Spouse & dependent children under 18 (or 25 in university)',
+        summary: 'World-renowned retirement program granting immediate permanent residency plus statutory discounts on healthcare, dining, flights, and utility bills.',
+      },
+      {
+        id: 'qualified-investor',
+        name: 'Qualified Investor (Golden Visa)',
+        badge: 'Fast-Track 30 Days',
+        category: 'investor',
+        threshold: '$300,000 Real Estate or $500,000 Securities',
+        processingTime: '30 Business Days',
+        residencyPath: 'Immediate Permanent Residency (No initial travel required)',
+        dependents: 'Spouse, children under 25, and dependent parents',
+        summary: 'VIP fast-track permanent residency processed in 30 days through a $300k titled real estate acquisition or $750k Panamanian bank fixed deposit.',
+      },
+      {
+        id: 'digital-nomad',
+        name: 'Digital Nomad (Short-Term Remote)',
+        badge: 'Tax-Exempt Foreign Income',
+        category: 'temporary',
+        threshold: '$36,000 / year ($3,000 / mo) Foreign Income',
+        processingTime: '3 – 6 Weeks',
+        residencyPath: '9-Month Visa (Renewable once for 18 months total)',
+        dependents: 'Individual applicant (Family members apply separately)',
+        summary: 'Designed for remote employees and international freelancers working for non-Panamanian companies, exempting foreign-sourced income from local tax.',
+      },
+      {
+        id: 'business-investor',
+        name: 'Business / Macro-Enterprise Visa',
+        badge: 'Corporate Relocation',
+        category: 'investor',
+        threshold: '$160,000 Minimum Share Capital',
+        processingTime: '4 – 6 Months',
+        residencyPath: '2-Year Provisional → Permanent Residency',
+        dependents: 'Spouse, children under 25, and dependent parents',
+        summary: 'Ideal for entrepreneurs establishing an operational Panamanian corporation employing at least 5 local staff at minimum wage.',
+      }
+    ];
+
+    // =========================================================================
+    // 2. CURATED DATA: REAL ESTATE & LAND LISTINGS ACROSS 6 PANAMA REGIONS
+    // =========================================================================
+    const PROPERTIES = [
+      {
+        id: 'prop-201',
+        title: '7-Acre Creek & Riverfront Farm in Solano',
+        category: 'Land for Sale',
+        region: 'Boquete',
+        price: '$350,000',
+        specs: '7 Acres (approx. 2.83 Hectares) • Creek & Small River',
+        tags: ['Friendly Nations Eligible', 'Creek & River', 'Rolling Pasture'],
+        gradient: 'from-emerald-900 via-teal-800 to-navy-900',
+        images: [
+          './images/solano/1.jpg.jpeg',
+          './images/solano/2.jpg.jpeg',
+          './images/solano/3.jpg.jpeg',
+          './images/solano/4.jpg.jpeg',
+          './images/solano/5.jpg.jpeg',
+          './images/solano/6.jpg.jpeg',
+          './images/solano/7.jpg.jpeg',
+          './images/solano/8.jpg.jpeg',
+          './images/solano/9.jpg.jpeg'
+        ],
+        description: 'Expansive agricultural and lifestyle acreage in Solano, Chiriqui, with a natural creek and small river on the property, mature shade trees, and multiple building sites.'
+      }
+    ];
+
+    let activeVisaFilter = 'all';
+    let activePropertyCategory = 'all';
+    let activeRegionFilter = 'all';
+    let selectedBookingContext = '';
+    let savedPropertyIds = ['prop-101'];
+    let propertyPhotoIndex = {};
+    let lastReceiptText = '';
+
+    // Pre-populated sample booking in Client Portal so user sees how it works immediately
+    let clientBookings = [
+      {
+        ref: 'TIG-409182',
+        service: 'Legal Services & Visa Processing',
+        regions: 'Panama City, Boquete',
+        date: '2026-12-04',
+        time: '11:00 AM EST',
+        format: 'Video Call (Zoom / WhatsApp)',
+        clientName: 'Executive Discovery Session',
+        context: 'Friendly Nations Visa Strategy',
+        status: 'Confirmed'
+      }
+    ];
+
+    // =========================================================================
+    // 4. INITIALIZATION & RENDERING
+    // =========================================================================
+    window.addEventListener('DOMContentLoaded', () => {
+      // Set default minimum date to tomorrow for date inputs
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      const minDateStr = tomorrow.toISOString().split('T')[0];
+      const inlineDate = document.getElementById('inline-date');
+      const modalDate = document.getElementById('modal-date');
+      if (inlineDate) {
+        inlineDate.min = minDateStr;
+        inlineDate.value = minDateStr;
+      }
+      if (modalDate) {
+        modalDate.min = minDateStr;
+        modalDate.value = minDateStr;
+      }
+
+      runVisaMatcher();
+      renderVisas();
+      renderProperties();
+      updatePortalUI();
+    });
+
+    // =========================================================================
+    // 5. QUICK VISA MATCHER LOGIC
+    // =========================================================================
+    function runVisaMatcher() {
+      const goal = document.getElementById('matcher-goal').value;
+      const budget = document.getElementById('matcher-budget').value;
+      const resultContainer = document.getElementById('matcher-result');
+
+      let recommended = VISA_PROGRAMS[0]; // Default Friendly Nations
+
+      if (goal === 'retire' || budget === 'pension_1k') {
+        recommended = VISA_PROGRAMS.find(v => v.id === 'pensionado');
+      } else if (budget === 'invest_300k') {
+        recommended = VISA_PROGRAMS.find(v => v.id === 'qualified-investor');
+      } else if (goal === 'remote' || budget === 'remote_3k') {
+        recommended = VISA_PROGRAMS.find(v => v.id === 'digital-nomad');
+      } else if (goal === 'business' || budget === 'corp_160k') {
+        recommended = VISA_PROGRAMS.find(v => v.id === 'business-investor');
+      } else {
+        recommended = VISA_PROGRAMS.find(v => v.id === 'friendly-nations');
+      }
+
+      resultContainer.innerHTML = `
+        <div class="flex items-start justify-between gap-2">
+          <div>
+            <span class="inline-block text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-gold-500/20 text-gold-300 border border-gold-400/30">
+              Recommended Match
+            </span>
+            <h3 class="font-serif text-lg font-bold text-white mt-1">${recommended.name}</h3>
+          </div>
+          <span class="text-xs font-medium text-gold-400 whitespace-nowrap">${recommended.processingTime}</span>
+        </div>
+        <p class="text-xs text-slate-300 mt-1.5 leading-relaxed">${recommended.summary}</p>
+        <div class="mt-3 pt-3 border-t border-slate-800 flex items-center justify-between gap-2">
+          <span class="text-[11px] text-slate-400">${recommended.threshold}</span>
+          <button
+            type="button"
+            onclick="selectVisaForBooking('${recommended.name.replace(/'/g, "\\'")}')"
+            class="px-3 py-1.5 rounded-lg bg-gold-400 hover:bg-gold-300 text-navy-950 font-semibold text-xs transition-all shrink-0"
+          >
+            Consult on Visa →
+          </button>
+        </div>
+      `;
+    }
+
+    // =========================================================================
+    // 6. VISAS DIRECTORY RENDERING & FILTERING
+    // =========================================================================
+    function filterVisas(category) {
+      activeVisaFilter = category;
+      document.querySelectorAll('.visa-filter-btn').forEach(btn => {
+        const isSelected = btn.getAttribute('data-visa-filter') === category;
+        btn.className = isSelected
+          ? 'visa-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-navy-900 text-white shadow-sm transition-all'
+          : 'visa-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium bg-white text-slate-700 border border-slate-200 hover:border-navy-900 transition-all';
+      });
+      renderVisas();
+    }
+
+    function renderVisas() {
+      const grid = document.getElementById('visa-grid');
+      const filtered = activeVisaFilter === 'all'
+        ? VISA_PROGRAMS
+        : VISA_PROGRAMS.filter(v => v.category === activeVisaFilter);
+
+      grid.innerHTML = filtered.map(visa => `
+        <article class="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between shadow-sm hover:shadow-lg hover:border-gold-400/70 transition-all">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="px-2.5 py-1 rounded-lg bg-sand-100 text-navy-900 text-[11px] font-bold uppercase tracking-wider">
+                ${visa.badge}
+              </span>
+              <span class="text-xs font-semibold text-gold-600">${visa.processingTime}</span>
+            </div>
+
+            <h3 class="font-serif text-xl font-bold text-navy-900 mb-2">${visa.name}</h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-5">
+              ${visa.summary}
+            </p>
+
+            <div class="space-y-2.5 border-t border-slate-100 pt-4 text-xs">
+              <div>
+                <span class="font-bold text-navy-900 block">Investment / Income Threshold:</span>
+                <span class="text-slate-600">${visa.threshold}</span>
+              </div>
+              <div>
+                <span class="font-bold text-navy-900 block">Residency Path:</span>
+                <span class="text-slate-600">${visa.residencyPath}</span>
+              </div>
+              <div>
+                <span class="font-bold text-navy-900 block">Dependents Covered:</span>
+                <span class="text-slate-600">${visa.dependents}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-6 mt-6 border-t border-slate-100">
+            <button
+              onclick="selectVisaForBooking('${visa.name.replace(/'/g, "\\'")}')"
+              class="w-full py-3 px-4 rounded-xl bg-navy-900 hover:bg-navy-800 text-white hover:text-gold-300 font-semibold text-xs sm:text-sm transition-all flex items-center justify-center gap-2"
+            >
+              <span>Select for Legal Consult</span>
+              <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </button>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    // =========================================================================
+    // 7. REAL ESTATE MARKETPLACE RENDERING & FILTERING
+    // =========================================================================
+    function setPropertyCategory(cat) {
+      activePropertyCategory = cat;
+      document.querySelectorAll('.prop-cat-btn').forEach(btn => {
+        const isSelected = btn.getAttribute('data-prop-cat') === cat;
+        btn.className = isSelected
+          ? 'prop-cat-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-navy-900 text-white transition-all'
+          : 'prop-cat-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium bg-sand-50 text-slate-700 border border-slate-200 hover:border-navy-900 transition-all';
+      });
+      applyPropertyFilters();
+    }
+
+    function applyPropertyFilters() {
+      activeRegionFilter = document.getElementById('region-filter').value;
+      renderProperties();
+    }
+
+    function toggleSaveProperty(propId) {
+      const idx = savedPropertyIds.indexOf(propId);
+      const prop = PROPERTIES.find(p => p.id === propId);
+      if (idx > -1) {
+        savedPropertyIds.splice(idx, 1);
+        showToast(`Removed "${prop.title}" from saved shortlist.`);
+      } else {
+        savedPropertyIds.push(propId);
+        showToast(`Saved "${prop.title}" to your Client Portal.`);
+      }
+      renderProperties();
+      updatePortalUI();
+    }
+
+    function cyclePropertyPhoto(propId, delta) {
+      const prop = PROPERTIES.find(p => p.id === propId);
+      if (!prop || !Array.isArray(prop.images) || prop.images.length === 0) return;
+      const current = propertyPhotoIndex[propId] || 0;
+      propertyPhotoIndex[propId] = (current + delta + prop.images.length) % prop.images.length;
+      renderProperties();
+    }
+
+    function renderProperties() {
+      const grid = document.getElementById('property-grid');
+      const countLabel = document.getElementById('property-count-label');
+
+      const filtered = PROPERTIES.filter(p => {
+        const matchesCat = activePropertyCategory === 'all' || p.category === activePropertyCategory;
+        const matchesReg = activeRegionFilter === 'all' || p.region === activeRegionFilter;
+        return matchesCat && matchesReg;
+      });
+
+      countLabel.textContent = `Showing ${filtered.length} vetted listing${filtered.length === 1 ? '' : 's'}`;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full bg-sand-50 rounded-2xl border border-slate-200 p-10 text-center">
+            <p class="font-serif text-xl font-bold text-navy-900">No active listings match this exact filter combination.</p>
+            <p class="text-sm text-slate-600 mt-1">Our off-market pocket inventory includes additional homes and acreage across ${activeRegionFilter}.</p>
+            <button onclick="openBookingModal('House Hunting (Buy or Rent)', '${activeRegionFilter === 'all' ? 'Panama City' : activeRegionFilter}')" class="mt-4 px-5 py-2.5 rounded-xl bg-navy-900 text-gold-400 text-xs font-semibold">
+              Request Off-Market Portfolio
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(prop => {
+        const isSaved = savedPropertyIds.includes(prop.id);
+        return `
+          <article class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl transition-all flex flex-col justify-between group">
+            <div>
+              <!-- Visual Architectural Header Banner with Multi-Photo Gallery -->
+              ${(() => {
+                const imgs = Array.isArray(prop.images) && prop.images.length > 0 ? prop.images : [];
+                const curIdx = imgs.length > 0 ? ((propertyPhotoIndex[prop.id] || 0) % imgs.length + imgs.length) % imgs.length : 0;
+                const curImg = imgs.length > 0 ? imgs[curIdx] : '';
+                return `
+                  <div class="relative h-52 bg-gradient-to-br ${prop.gradient} flex flex-col justify-between text-white overflow-hidden">
+                    ${curImg ? `
+                      <img
+                        src="${curImg}"
+                        alt="${prop.title} - photo ${curIdx + 1}"
+                        onerror="this.style.display='none';"
+                        class="absolute inset-0 w-full h-full object-cover"
+                      />
+                      <div class="absolute inset-0 bg-gradient-to-t from-navy-950/85 via-navy-950/25 to-navy-950/45 pointer-events-none"></div>
+                    ` : ''}
+
+                    <div class="relative z-10 p-5 flex items-center justify-between gap-2">
+                      <span class="px-3 py-1 rounded-lg bg-navy-950/75 backdrop-blur-xs text-[11px] font-semibold uppercase tracking-wider text-gold-300 border border-gold-400/30">
+                        ${prop.category}
+                      </span>
+                      <div class="flex items-center gap-1.5">
+                        ${imgs.length > 1 ? `
+                          <span class="px-2.5 py-1 rounded-lg bg-navy-950/75 text-[11px] font-semibold text-white">
+                            ${curIdx + 1} / ${imgs.length}
+                          </span>
+                        ` : ''}
+                        <button
+                          type="button"
+                          onclick="toggleSaveProperty('${prop.id}')"
+                          class="w-9 h-9 rounded-xl bg-navy-950/75 hover:bg-navy-950 flex items-center justify-center transition-colors"
+                          aria-label="Save property"
+                          title="${isSaved ? 'Remove from saved' : 'Save to Client Portal'}"
+                        >
+                          <svg class="w-4 h-4 ${isSaved ? 'text-gold-400 fill-gold-400' : 'text-white'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+
+                    ${imgs.length > 1 ? `
+                      <div class="relative z-10 px-3 flex items-center justify-between pointer-events-none">
+                        <button
+                          type="button"
+                          onclick="cyclePropertyPhoto('${prop.id}', -1)"
+                          class="pointer-events-auto w-8 h-8 rounded-full bg-navy-950/75 hover:bg-navy-950 text-white flex items-center justify-center border border-white/15 transition-colors"
+                          aria-label="Previous photo"
+                        >‹</button>
+                        <button
+                          type="button"
+                          onclick="cyclePropertyPhoto('${prop.id}', 1)"
+                          class="pointer-events-auto w-8 h-8 rounded-full bg-navy-950/75 hover:bg-navy-950 text-white flex items-center justify-center border border-white/15 transition-colors"
+                          aria-label="Next photo"
+                        >›</button>
+                      </div>
+                    ` : ''}
+
+                    <div class="relative z-10 p-5 pt-2">
+                      <div class="flex items-center gap-1.5 text-xs text-slate-200 font-medium">
+                        <svg class="w-3.5 h-3.5 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        <span>${prop.region}, Panama</span>
+                      </div>
+                      <p class="font-serif text-2xl font-bold text-white mt-0.5">${prop.price}</p>
+                    </div>
+                  </div>
+                `;
+              })()}
+
+              <!-- Property Body -->
+              <div class="p-6">
+                <h3 class="font-serif text-lg font-bold text-navy-900 group-hover:text-gold-600 transition-colors">
+                  ${prop.title}
+                </h3>
+                <p class="text-xs font-semibold text-slate-500 mt-1">${prop.specs}</p>
+                <p class="text-xs sm:text-sm text-slate-600 mt-3 leading-relaxed">
+                  ${prop.description}
+                </p>
+
+                <!-- Tags -->
+                <div class="flex flex-wrap gap-1.5 mt-4">
+                  ${prop.tags.map(tag => `
+                    <span class="px-2.5 py-1 rounded-md bg-sand-100 text-slate-700 text-[11px] font-medium">
+                      ${tag}
+                    </span>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Footer -->
+            <div class="px-6 pb-6 pt-2">
+              <button
+                onclick="selectPropertyForBooking('${prop.id}')"
+                class="w-full py-3 px-4 rounded-xl bg-sand-100 hover:bg-navy-900 text-navy-900 hover:text-gold-400 border border-slate-200 hover:border-navy-900 font-semibold text-xs sm:text-sm transition-all"
+              >
+                Schedule Viewing / Scouting Tour
+              </button>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    // =========================================================================
+    // 8. BOOKING ENGINE & CONTEXT PRE-FILLING
+    // =========================================================================
+    function selectVisaForBooking(visaName) {
+      selectedBookingContext = `Visa Program: ${visaName}`;
+      openBookingModal('Legal Services & Visa Processing', 'Panama City', selectedBookingContext);
+    }
+
+    function selectPropertyForBooking(propId) {
+      const prop = PROPERTIES.find(p => p.id === propId);
+      if (!prop) return;
+      const serviceType = prop.category === 'Land for Sale'
+        ? 'Land Acquisition & Due Diligence'
+        : 'House Hunting (Buy or Rent)';
+      selectedBookingContext = `${prop.title} (${prop.region} — ${prop.price})`;
+      openBookingModal(serviceType, prop.region, selectedBookingContext);
+    }
+
+    function openBookingModal(service = 'Legal Services & Visa Processing', region = 'Panama City', contextText = '') {
+      const modal = document.getElementById('booking-modal');
+      const serviceSelect = document.getElementById('modal-service');
+      const regionSelect = document.getElementById('modal-region');
+      const contextBanner = document.getElementById('modal-context-banner');
+      const contextLabel = document.getElementById('modal-context-label');
+
+      if (serviceSelect) serviceSelect.value = service;
+      if (regionSelect && ['Panama City', 'Boquete', 'Volcán', 'Pedasí', 'Coronado', 'Bocas del Toro'].includes(region)) {
+        regionSelect.value = region;
+      }
+
+      if (contextText) {
+        selectedBookingContext = contextText;
+        contextLabel.textContent = contextText;
+        contextBanner.classList.remove('hidden');
+        // Also sync to inline booking form
+        document.getElementById('inline-context-text').textContent = contextText;
+        document.getElementById('inline-context-box').classList.remove('hidden');
+      } else {
+        contextBanner.classList.add('hidden');
+      }
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeBookingModal() {
+      const modal = document.getElementById('booking-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function clearBookingContext() {
+      selectedBookingContext = '';
+      document.getElementById('inline-context-box').classList.add('hidden');
+      document.getElementById('modal-context-banner').classList.add('hidden');
+    }
+
+    function handleBookingSubmit(event, source) {
+      event.preventDefault();
+
+      let service, regions, date, time, format, clientName, email, phone, notes;
+
+      if (source === 'inline') {
+        const checkedService = document.querySelector('input[name="inline_service"]:checked');
+        service = checkedService ? checkedService.value : 'Legal Services & Visa Processing';
+        const checkedRegions = Array.from(document.querySelectorAll('input[name="inline_regions"]:checked')).map(el => el.value);
+        regions = checkedRegions.length > 0 ? checkedRegions.join(', ') : 'Panama City';
+        date = document.getElementById('inline-date').value;
+        time = document.getElementById('inline-time').value;
+        format = document.getElementById('inline-format').value;
+        clientName = document.getElementById('inline-name').value.trim();
+        email = document.getElementById('inline-email').value.trim();
+        phone = document.getElementById('inline-phone').value.trim();
+        notes = document.getElementById('inline-notes').value.trim();
+      } else {
+        service = document.getElementById('modal-service').value;
+        regions = document.getElementById('modal-region').value;
+        date = document.getElementById('modal-date').value;
+        time = document.getElementById('modal-time').value;
+        format = document.getElementById('modal-format').value;
+        clientName = document.getElementById('modal-name').value.trim();
+        email = document.getElementById('modal-email').value.trim();
+        phone = document.getElementById('modal-phone').value.trim();
+        notes = document.getElementById('modal-notes').value.trim();
+        closeBookingModal();
+      }
+
+      const refCode = 'TIG-' + Math.floor(100000 + Math.random() * 900000);
+      const newBooking = {
+        ref: refCode,
+        service,
+        regions,
+        date,
+        time,
+        format,
+        clientName,
+        email,
+        phone,
+        context: selectedBookingContext || notes || 'General Advisory',
+        status: 'Confirmed'
+      };
+
+      clientBookings.unshift(newBooking);
+      updatePortalUI();
+      showReceiptModal(newBooking);
+
+      // Reset text fields
+      if (source === 'inline') {
+        document.getElementById('inline-name').value = '';
+        document.getElementById('inline-email').value = '';
+        document.getElementById('inline-phone').value = '';
+        document.getElementById('inline-notes').value = '';
+      } else {
+        document.getElementById('modal-name').value = '';
+        document.getElementById('modal-email').value = '';
+        document.getElementById('modal-phone').value = '';
+        document.getElementById('modal-notes').value = '';
+      }
+      clearBookingContext();
+    }
+
+    function showReceiptModal(booking) {
+      document.getElementById('receipt-ref').textContent = `REFERENCE: ${booking.ref}`;
+      document.getElementById('receipt-details').innerHTML = `
+        <div class="flex justify-between gap-4 border-b border-slate-200 pb-2">
+          <span class="text-slate-500">Client:</span>
+          <span class="font-semibold text-navy-900 text-right">${booking.clientName}</span>
+        </div>
+        <div class="flex justify-between gap-4 border-b border-slate-200 pb-2">
+          <span class="text-slate-500">Service:</span>
+          <span class="font-semibold text-navy-900 text-right">${booking.service}</span>
+        </div>
+        <div class="flex justify-between gap-4 border-b border-slate-200 pb-2">
+          <span class="text-slate-500">Destinations:</span>
+          <span class="font-semibold text-navy-900 text-right">${booking.regions}</span>
+        </div>
+        <div class="flex justify-between gap-4 border-b border-slate-200 pb-2">
+          <span class="text-slate-500">Date &amp; Time:</span>
+          <span class="font-semibold text-navy-900 text-right">${booking.date} at ${booking.time}</span>
+        </div>
+        <div class="flex justify-between gap-4 border-b border-slate-200 pb-2">
+          <span class="text-slate-500">Format:</span>
+          <span class="font-semibold text-navy-900 text-right">${booking.format}</span>
+        </div>
+        <div class="pt-1 text-xs text-slate-600 space-y-1">
+          <p class="font-bold text-navy-900">Trademark International Group Concierge:</p>
+          <p>Phone / WhatsApp: <a href="tel:+50768637794" class="font-semibold text-navy-900 underline">507-6863-7794</a></p>
+          <p>Email: <a href="mailto:Trademarkintgroup@gmail.com" class="font-semibold text-navy-900 underline">Trademarkintgroup@gmail.com</a></p>
+        </div>
+      `;
+
+      lastReceiptText = `Trademark International Group Appointment (${booking.ref})\nClient: ${booking.clientName}\nService: ${booking.service}\nRegions: ${booking.regions}\nWhen: ${booking.date} at ${booking.time}\nFormat: ${booking.format}\nDirect Phone / WhatsApp: +507 6863-7794\nEmail: Trademarkintgroup@gmail.com`;
+
+      const modal = document.getElementById('receipt-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function copyTextToClipboard(text, successMsg) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        showToast(successMsg);
+      } catch (err) {
+        showToast('Unable to copy automatically.');
+      }
+      document.body.removeChild(textarea);
+    }
+
+    function copyReceiptSummary() {
+      copyTextToClipboard(lastReceiptText, 'Calendar summary copied to clipboard.');
+    }
+
+    function closeReceiptAndOpenPortal() {
+      const modal = document.getElementById('receipt-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      togglePortalDrawer(true);
+    }
+
+    // =========================================================================
+    // 9. CLIENT PORTAL DRAWER ("MY SAVED & BOOKINGS")
+    // =========================================================================
+    let currentPortalTab = 'bookings';
+
+    function togglePortalDrawer(open) {
+      const drawer = document.getElementById('portal-drawer');
+      if (open) {
+        drawer.classList.remove('hidden');
+        updatePortalUI();
+      } else {
+        drawer.classList.add('hidden');
+      }
+    }
+
+    function switchPortalTab(tab) {
+      currentPortalTab = tab;
+      const bTab = document.getElementById('portal-tab-bookings');
+      const sTab = document.getElementById('portal-tab-saved');
+
+      if (tab === 'bookings') {
+        bTab.className = 'py-3.5 border-b-2 border-navy-900 text-navy-900';
+        sTab.className = 'py-3.5 border-b-2 border-transparent text-slate-500 hover:text-navy-900';
+      } else {
+        sTab.className = 'py-3.5 border-b-2 border-navy-900 text-navy-900';
+        bTab.className = 'py-3.5 border-b-2 border-transparent text-slate-500 hover:text-navy-900';
+      }
+      renderPortalContent();
+    }
+
+    function updatePortalUI() {
+      const totalBadge = clientBookings.length + savedPropertyIds.length;
+      document.getElementById('portal-badge').textContent = totalBadge;
+      document.getElementById('tab-bookings-count').textContent = clientBookings.length;
+      document.getElementById('tab-saved-count').textContent = savedPropertyIds.length;
+      renderPortalContent();
+    }
+
+    function renderPortalContent() {
+      const container = document.getElementById('portal-content');
+
+      if (currentPortalTab === 'bookings') {
+        if (clientBookings.length === 0) {
+          container.innerHTML = `<p class="text-sm text-slate-500 text-center py-8">No scheduled appointments yet.</p>`;
+          return;
+        }
+
+        container.innerHTML = clientBookings.map(b => `
+          <div class="rounded-xl border border-slate-200 bg-sand-50 p-4 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-mono font-bold text-navy-900 bg-white px-2 py-0.5 rounded border border-slate-200">${b.ref}</span>
+              <span class="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">${b.status}</span>
+            </div>
+            <h4 class="font-serif text-base font-bold text-navy-900">${b.service}</h4>
+            <p class="text-xs text-slate-600"><strong class="text-navy-900">When:</strong> ${b.date} • ${b.time}</p>
+            <p class="text-xs text-slate-600"><strong class="text-navy-900">Regions:</strong> ${b.regions}</p>
+            <p class="text-xs text-slate-600"><strong class="text-navy-900">Format:</strong> ${b.format}</p>
+            ${b.context ? `<p class="text-xs text-gold-600 font-medium pt-1 border-t border-slate-200/80">Focus: ${b.context}</p>` : ''}
+          </div>
+        `).join('');
+      } else {
+        const savedProps = PROPERTIES.filter(p => savedPropertyIds.includes(p.id));
+        if (savedProps.length === 0) {
+          container.innerHTML = `
+            <div class="text-center py-10 space-y-2">
+              <p class="text-sm font-medium text-navy-900">Your property shortlist is empty.</p>
+              <p class="text-xs text-slate-500">Click the bookmark icon on any house or land listing to save it here.</p>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = savedProps.map(p => `
+          <div class="rounded-xl border border-slate-200 bg-white p-4 space-y-2 shadow-xs">
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-gold-600">${p.region} • ${p.category}</span>
+                <h4 class="font-serif text-sm font-bold text-navy-900 mt-0.5">${p.title}</h4>
+              </div>
+              <button onclick="toggleSaveProperty('${p.id}')" class="text-xs text-slate-400 hover:text-red-600" title="Remove">✕</button>
+            </div>
+            <p class="text-sm font-bold text-navy-900">${p.price}</p>
+            <button
+              onclick="togglePortalDrawer(false); selectPropertyForBooking('${p.id}');"
+              class="w-full py-2 rounded-lg bg-sand-100 hover:bg-navy-900 text-navy-900 hover:text-gold-400 text-xs font-semibold transition-colors"
+            >
+              Book Private Viewing
+            </button>
+          </div>
+        `).join('');
+      }
+    }
+
+    // =========================================================================
+    // 10. MOBILE MENU & TOAST NOTIFICATIONS
+    // =========================================================================
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+
+    function showToast(message) {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'pointer-events-auto bg-navy-900 text-white border border-gold-400/50 rounded-xl px-4 py-3 shadow-xl text-xs sm:text-sm flex items-center gap-2.5 transition-all';
+      toast.innerHTML = `
+        <span class="w-2 h-2 rounded-full bg-gold-400 shrink-0"></span>
+        <span>${message}</span>
+      `;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 300);
+      }, 3200);
+    }
+  </script>
+</body>
+</html>
