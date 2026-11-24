@@ -4,10 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Trademark International Group | Panama Relocation, Legal & Real Estate</title>
+  <!-- Google Fonts: Inter & Playfair Display for luxury executive aesthetic -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet" />
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Tailwind Configuration -->
   <script>
     tailwind.config = {
       theme: {
@@ -42,7 +45,7 @@
 </head>
 <body class="bg-sand-50 text-slate-800 font-sans antialiased selection:bg-gold-400 selection:text-navy-950">
 
-  <!-- Toast Notification Banner -->
+  <!-- Toast Notification Banner (Replaces alert()) -->
   <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none max-w-sm w-full px-4 sm:px-0"></div>
 
   <!-- Top Contact / Utility Bar -->
@@ -79,6 +82,7 @@
   <header class="sticky top-0 z-40 bg-navy-950/95 backdrop-blur-md border-b border-slate-800/80 text-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-20">
+        <!-- Brand Logo -->
         <a href="#" class="flex items-center gap-3 group">
           <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center text-navy-950 font-serif font-bold text-xl shadow-lg shadow-gold-500/20 group-hover:scale-105 transition-transform">
             T
@@ -93,6 +97,7 @@
           </div>
         </a>
 
+        <!-- Desktop Navigation Links -->
         <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-300">
           <a href="#visas" class="hover:text-gold-400 transition-colors py-2">Visas & Residency</a>
           <a href="#real-estate" class="hover:text-gold-400 transition-colors py-2">Real Estate & Land</a>
@@ -100,6 +105,7 @@
           <a href="#booking-section" class="hover:text-gold-400 transition-colors py-2">Book Appointment</a>
         </nav>
 
+        <!-- Action Buttons & Client Portal Trigger -->
         <div class="flex items-center gap-2 sm:gap-3">
           <button
             onclick="togglePortalDrawer(true)"
@@ -122,6 +128,7 @@
             <span>Book Consultation</span>
           </button>
 
+          <!-- Mobile Hamburger Menu Button -->
           <button
             id="mobile-menu-btn"
             onclick="toggleMobileMenu()"
@@ -135,6 +142,7 @@
         </div>
       </div>
 
+      <!-- Mobile Navigation Drawer -->
       <div id="mobile-menu" class="hidden lg:hidden pb-4 pt-2 border-t border-slate-800 space-y-1">
         <a href="#visas" onclick="toggleMobileMenu()" class="block px-3 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:bg-navy-800 hover:text-gold-400">Visas & Residency</a>
         <a href="#real-estate" onclick="toggleMobileMenu()" class="block px-3 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:bg-navy-800 hover:text-gold-400">Real Estate & Land</a>
@@ -146,11 +154,13 @@
 
   <!-- Hero Section -->
   <section class="relative bg-navy-950 text-white overflow-hidden">
+    <!-- Subtle Geometric & Ambient Gradient Accents -->
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(212,177,106,0.16),_transparent_50%)] pointer-events-none"></div>
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_rgba(29,53,92,0.45),_transparent_55%)] pointer-events-none"></div>
 
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-28">
       <div class="grid lg:grid-cols-12 gap-12 items-center">
+        <!-- Left Column: Value Proposition -->
         <div class="lg:col-span-7 space-y-6">
           <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-navy-800/90 border border-gold-500/30 text-gold-300 text-xs font-medium tracking-wide">
             <span class="w-2 h-2 rounded-full bg-gold-400 animate-pulse"></span>
@@ -165,6 +175,7 @@
             Trademark International Group delivers end-to-end bilingual legal counsel, residency visa processing, bespoke scouting tours, and vetted residential &amp; land acquisitions across Panama’s premier destinations.
           </p>
 
+          <!-- Primary CTA Cluster -->
           <div class="flex flex-wrap items-center gap-3 sm:gap-4 pt-2">
             <button
               onclick="openBookingModal('Legal Services & Visa Processing')"
@@ -180,6 +191,7 @@
             </a>
           </div>
 
+          <!-- Trust Metrics Bar -->
           <div class="grid grid-cols-3 gap-4 sm:gap-8 pt-8 border-t border-slate-800/90 max-w-xl">
             <div>
               <p class="font-serif text-2xl sm:text-3xl font-bold text-gold-400">99.4%</p>
@@ -216,6 +228,7 @@
             </p>
 
             <div class="space-y-4">
+              <!-- Primary Goal Selector -->
               <div>
                 <label for="matcher-goal" class="block text-xs font-medium text-slate-300 mb-1.5">1. Primary Relocation Goal</label>
                 <select
@@ -230,6 +243,7 @@
                 </select>
               </div>
 
+              <!-- Budget / Income Tier Selector -->
               <div>
                 <label for="matcher-budget" class="block text-xs font-medium text-slate-300 mb-1.5">2. Monthly Income or Capital Tier</label>
                 <select
@@ -245,7 +259,10 @@
                 </select>
               </div>
 
-              <div id="matcher-result" class="rounded-xl bg-navy-950/90 border border-gold-500/40 p-4 mt-4"></div>
+              <!-- Dynamic Recommendation Card -->
+              <div id="matcher-result" class="rounded-xl bg-navy-950/90 border border-gold-500/40 p-4 mt-4">
+                <!-- Populated dynamically by JS -->
+              </div>
             </div>
           </div>
         </div>
@@ -266,6 +283,7 @@
         </p>
       </div>
 
+      <!-- Visa Filter Tabs -->
       <div id="visa-filters" class="flex flex-wrap gap-2">
         <button onclick="filterVisas('all')" data-visa-filter="all" class="visa-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-navy-900 text-white shadow-sm transition-all">
           All Programs
@@ -282,7 +300,10 @@
       </div>
     </div>
 
-    <div id="visa-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    <!-- Visas Cards Grid -->
+    <div id="visa-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Populated dynamically via JS -->
+    </div>
   </section>
 
   <!-- Section 3: Real Estate & Scouting Marketplace -->
@@ -299,6 +320,7 @@
           </p>
         </div>
 
+        <!-- Region Dropdown Filter -->
         <div class="flex flex-wrap items-center gap-3">
           <label for="region-filter" class="text-xs font-semibold uppercase tracking-wider text-slate-500">Region:</label>
           <select
@@ -317,6 +339,7 @@
         </div>
       </div>
 
+      <!-- Category Filter Pills -->
       <div class="flex flex-wrap items-center justify-between gap-4 pb-8 mb-8 border-b border-slate-200">
         <div class="flex flex-wrap gap-2">
           <button onclick="setPropertyCategory('all')" data-prop-cat="all" class="prop-cat-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-navy-900 text-white transition-all">
@@ -338,7 +361,10 @@
         </p>
       </div>
 
-      <div id="property-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-7"></div>
+      <!-- Property Grid -->
+      <div id="property-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
+        <!-- Populated dynamically via JS -->
+      </div>
     </div>
   </section>
 
@@ -354,33 +380,46 @@
       </p>
     </div>
 
+    <!-- 4-Step Timeline Grid -->
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Step 1 -->
       <div class="relative bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-        <div class="w-11 h-11 rounded-xl bg-navy-900 text-gold-400 font-serif font-bold text-lg flex items-center justify-center mb-5">01</div>
+        <div class="w-11 h-11 rounded-xl bg-navy-900 text-gold-400 font-serif font-bold text-lg flex items-center justify-center mb-5">
+          01
+        </div>
         <h3 class="font-serif text-lg font-bold text-navy-900 mb-2">Strategy &amp; Visa Selection</h3>
         <p class="text-sm text-slate-600 leading-relaxed">
           One-on-one legal assessment to map your residency visa, apostille checklist, tax posture, and family dependent filings.
         </p>
       </div>
 
+      <!-- Step 2 -->
       <div class="relative bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-        <div class="w-11 h-11 rounded-xl bg-navy-900 text-gold-400 font-serif font-bold text-lg flex items-center justify-center mb-5">02</div>
+        <div class="w-11 h-11 rounded-xl bg-navy-900 text-gold-400 font-serif font-bold text-lg flex items-center justify-center mb-5">
+          02
+        </div>
         <h3 class="font-serif text-lg font-bold text-navy-900 mb-2">Scouting Tour &amp; Property</h3>
         <p class="text-sm text-slate-600 leading-relaxed">
           Private guided scouting across Boquete, Panama City, or the coasts. Full title search and escrow protection before you sign.
         </p>
       </div>
 
+      <!-- Step 3 -->
       <div class="relative bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-        <div class="w-11 h-11 rounded-xl bg-navy-900 text-gold-400 font-serif font-bold text-lg flex items-center justify-center mb-5">03</div>
+        <div class="w-11 h-11 rounded-xl bg-navy-900 text-gold-400 font-serif font-bold text-lg flex items-center justify-center mb-5">
+          03
+        </div>
         <h3 class="font-serif text-lg font-bold text-navy-900 mb-2">Legal Filing &amp; Banking</h3>
         <p class="text-sm text-slate-600 leading-relaxed">
           In-person accompaniment to Panama Immigration (SNM), personal &amp; corporate bank account opening, and biometric ID issuance.
         </p>
       </div>
 
+      <!-- Step 4 -->
       <div class="relative bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-        <div class="w-11 h-11 rounded-xl bg-navy-900 text-gold-400 font-serif font-bold text-lg flex items-center justify-center mb-5">04</div>
+        <div class="w-11 h-11 rounded-xl bg-navy-900 text-gold-400 font-serif font-bold text-lg flex items-center justify-center mb-5">
+          04
+        </div>
         <h3 class="font-serif text-lg font-bold text-navy-900 mb-2">Smooth Landing &amp; Setup</h3>
         <p class="text-sm text-slate-600 leading-relaxed">
           Driver’s license transfer, private health insurance, utilities, customs household shipping, and local concierge onboarding.
@@ -388,6 +427,7 @@
       </div>
     </div>
 
+    <!-- Why Trademark International Group Banner -->
     <div class="mt-12 rounded-2xl bg-navy-900 text-white p-8 sm:p-10 grid lg:grid-cols-12 gap-8 items-center">
       <div class="lg:col-span-8 space-y-3">
         <span class="text-xs font-semibold uppercase tracking-widest text-gold-400">Why Trademark International Group</span>
@@ -423,6 +463,7 @@
       </div>
 
       <div class="grid lg:grid-cols-12 gap-8 items-start">
+        <!-- Direct Concierge Contact Card -->
         <div class="lg:col-span-4 bg-navy-900 text-white rounded-2xl border border-slate-800 shadow-xl p-6 sm:p-8 space-y-6">
           <div>
             <span class="text-xs font-bold uppercase tracking-widest text-gold-400">Direct Advisory Desk</span>
@@ -432,6 +473,7 @@
             </p>
           </div>
 
+          <!-- Phone & WhatsApp Card -->
           <div class="rounded-xl bg-navy-950/90 border border-slate-800 p-4 space-y-3">
             <div class="flex items-center justify-between">
               <span class="text-[11px] font-bold uppercase tracking-wider text-gold-400">Panama Direct &amp; WhatsApp</span>
@@ -439,20 +481,41 @@
             </div>
             <p class="font-serif text-xl font-bold text-white tracking-wide">507-6863-7794</p>
             <div class="grid grid-cols-2 gap-2 pt-1">
-              <a href="tel:+50768637794" class="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-navy-800 hover:bg-navy-700 border border-slate-700 text-white text-xs font-semibold transition-all">
+              <a
+                href="tel:+50768637794"
+                class="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-navy-800 hover:bg-navy-700 border border-slate-700 text-white text-xs font-semibold transition-all"
+              >
+                <svg class="w-3.5 h-3.5 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
                 <span>Call Now</span>
               </a>
-              <a href="https://wa.me/50768637794" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/40 text-emerald-300 text-xs font-semibold transition-all">
+              <a
+                href="https://wa.me/50768637794"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/40 text-emerald-300 text-xs font-semibold transition-all"
+              >
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                </svg>
                 <span>WhatsApp Chat</span>
               </a>
             </div>
           </div>
 
+          <!-- Official Email Card -->
           <div class="rounded-xl bg-navy-950/90 border border-slate-800 p-4 space-y-3">
             <span class="block text-[11px] font-bold uppercase tracking-wider text-gold-400">Official Client Email</span>
             <p class="text-sm font-semibold text-white break-all">Trademarkintgroup@gmail.com</p>
             <div class="grid grid-cols-2 gap-2 pt-1">
-              <a href="mailto:Trademarkintgroup@gmail.com" class="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-gold-400 hover:bg-gold-300 text-navy-950 text-xs font-semibold transition-all">
+              <a
+                href="mailto:Trademarkintgroup@gmail.com"
+                class="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-gold-400 hover:bg-gold-300 text-navy-950 text-xs font-semibold transition-all"
+              >
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
                 <span>Send Email</span>
               </a>
               <button
@@ -460,6 +523,9 @@
                 onclick="copyTextToClipboard('Trademarkintgroup@gmail.com', 'Official email copied to clipboard.')"
                 class="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-navy-800 hover:bg-navy-700 border border-slate-700 text-slate-200 text-xs font-semibold transition-all"
               >
+                <svg class="w-3.5 h-3.5 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
                 <span>Copy Email</span>
               </button>
             </div>
@@ -471,53 +537,54 @@
           </div>
         </div>
 
+        <!-- Embedded Booking Form Card -->
         <div class="lg:col-span-8 bg-white rounded-2xl border border-slate-200 shadow-xl p-6 sm:p-10">
           <form id="inline-booking-form" onsubmit="handleBookingSubmit(event, 'inline')" class="space-y-6">
-            <div id="inline-context-box" class="hidden rounded-xl bg-sand-100 border border-gold-400/70 px-4 py-3 flex items-center justify-between gap-3 text-xs sm:text-sm text-navy-900">
+            <div id="inline-context-box" class="hidden rounded-xl bg-sand-100 border border-gold-400/70 px-4 py-3 text-xs sm:text-sm text-navy-900 flex items-center justify-between gap-2">
               <div>
                 <span class="font-bold">Selected Focus:</span>
                 <span id="inline-context-text"></span>
               </div>
-              <button type="button" onclick="clearBookingContext()" class="text-xs font-semibold text-slate-600 hover:text-navy-900">
-                Clear
-              </button>
+              <button type="button" onclick="clearBookingContext()" class="text-xs font-semibold text-slate-500 hover:text-navy-900">Clear</button>
             </div>
 
+            <!-- Step 1: Service Type -->
             <div>
-              <span class="block text-xs font-bold uppercase tracking-wider text-navy-900 mb-2.5">1. Primary Service Focus *</span>
+              <label class="block text-xs font-bold uppercase tracking-wider text-navy-900 mb-2">1. Select Service Focus *</label>
               <div class="grid sm:grid-cols-2 gap-2.5">
                 <label class="cursor-pointer">
                   <input type="radio" name="inline_service" value="Legal Services & Visa Processing" checked class="peer sr-only" />
-                  <span class="block px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-medium border border-slate-200 bg-sand-50 text-slate-700 peer-checked:bg-navy-900 peer-checked:text-gold-300 peer-checked:border-navy-900 transition-all">
+                  <span class="block px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium border border-slate-200 bg-sand-50 text-slate-700 peer-checked:bg-navy-900 peer-checked:text-gold-400 peer-checked:border-navy-900 transition-all">
                     Legal Services &amp; Visa Processing
                   </span>
                 </label>
                 <label class="cursor-pointer">
                   <input type="radio" name="inline_service" value="Full Relocation Logistics & Scouting Tours" class="peer sr-only" />
-                  <span class="block px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-medium border border-slate-200 bg-sand-50 text-slate-700 peer-checked:bg-navy-900 peer-checked:text-gold-300 peer-checked:border-navy-900 transition-all">
+                  <span class="block px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium border border-slate-200 bg-sand-50 text-slate-700 peer-checked:bg-navy-900 peer-checked:text-gold-400 peer-checked:border-navy-900 transition-all">
                     Full Relocation &amp; Scouting Tours
                   </span>
                 </label>
                 <label class="cursor-pointer">
                   <input type="radio" name="inline_service" value="House Hunting (Buy or Rent)" class="peer sr-only" />
-                  <span class="block px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-medium border border-slate-200 bg-sand-50 text-slate-700 peer-checked:bg-navy-900 peer-checked:text-gold-300 peer-checked:border-navy-900 transition-all">
+                  <span class="block px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium border border-slate-200 bg-sand-50 text-slate-700 peer-checked:bg-navy-900 peer-checked:text-gold-400 peer-checked:border-navy-900 transition-all">
                     House Hunting (Buy or Rent)
                   </span>
                 </label>
                 <label class="cursor-pointer">
                   <input type="radio" name="inline_service" value="Land Acquisition & Due Diligence" class="peer sr-only" />
-                  <span class="block px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-medium border border-slate-200 bg-sand-50 text-slate-700 peer-checked:bg-navy-900 peer-checked:text-gold-300 peer-checked:border-navy-900 transition-all">
+                  <span class="block px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium border border-slate-200 bg-sand-50 text-slate-700 peer-checked:bg-navy-900 peer-checked:text-gold-400 peer-checked:border-navy-900 transition-all">
                     Land Acquisition &amp; Due Diligence
                   </span>
                 </label>
               </div>
             </div>
 
+            <!-- Step 2: Target Regions -->
             <div>
-              <span class="block text-xs font-bold uppercase tracking-wider text-navy-900 mb-2.5">2. Target Regions of Interest</span>
+              <label class="block text-xs font-bold uppercase tracking-wider text-navy-900 mb-2">2. Target Regions in Panama</label>
               <div class="flex flex-wrap gap-2">
                 <label class="cursor-pointer">
-                  <input type="checkbox" name="inline_regions" value="Panama City" class="peer sr-only" />
+                  <input type="checkbox" name="inline_regions" value="Panama City" checked class="peer sr-only" />
                   <span class="inline-block px-3.5 py-2 rounded-xl text-xs font-medium border border-slate-200 bg-sand-50 text-slate-700 peer-checked:bg-navy-900 peer-checked:text-white peer-checked:border-navy-900 transition-all">
                     Panama City
                   </span>
@@ -555,6 +622,7 @@
               </div>
             </div>
 
+            <!-- Step 3: Date, Time Slot & Format -->
             <div class="grid sm:grid-cols-3 gap-4">
               <div>
                 <label for="inline-date" class="block text-xs font-bold uppercase tracking-wider text-navy-900 mb-1.5">3. Preferred Date *</label>
@@ -592,6 +660,7 @@
               </div>
             </div>
 
+            <!-- Step 4: Client Details -->
             <div class="grid sm:grid-cols-3 gap-4">
               <div>
                 <label for="inline-name" class="block text-xs font-bold uppercase tracking-wider text-navy-900 mb-1.5">Full Name *</label>
@@ -701,9 +770,10 @@
     </div>
   </footer>
 
-  <!-- Interactive Booking Modal -->
+  <!-- Interactive Booking Modal (Triggered from Visa Cards, Property Cards, or Header CTA) -->
   <div id="booking-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-navy-950/75 backdrop-blur-sm p-4 overflow-y-auto">
     <div class="bg-white rounded-2xl max-w-2xl w-full border border-slate-200 shadow-2xl overflow-hidden my-8">
+      <!-- Modal Header -->
       <div class="bg-navy-900 text-white px-6 py-5 flex items-center justify-between">
         <div>
           <span class="text-[11px] font-semibold uppercase tracking-widest text-gold-400">Trademark Concierge</span>
@@ -716,7 +786,9 @@
         </button>
       </div>
 
+      <!-- Modal Form Body -->
       <form id="modal-booking-form" onsubmit="handleBookingSubmit(event, 'modal')" class="p-6 space-y-4">
+        <!-- Pre-selected Context Pill -->
         <div id="modal-context-banner" class="hidden rounded-xl bg-sand-100 border border-gold-400/70 px-4 py-2.5 text-xs sm:text-sm text-navy-900">
           <span class="font-bold">Selected Item:</span> <span id="modal-context-label"></span>
         </div>
@@ -815,7 +887,9 @@
       </div>
 
       <div class="p-6 space-y-4">
-        <div id="receipt-details" class="rounded-xl bg-sand-50 border border-slate-200 p-4 space-y-2 text-xs sm:text-sm"></div>
+        <div id="receipt-details" class="rounded-xl bg-sand-50 border border-slate-200 p-4 space-y-2 text-xs sm:text-sm">
+          <!-- Populated dynamically -->
+        </div>
 
         <div class="flex flex-col sm:flex-row gap-3 pt-2">
           <button
@@ -826,744 +900,4 @@
           </button>
           <button
             onclick="closeReceiptAndOpenPortal()"
-            class="flex-1 px-4 py-2.5 rounded-xl bg-navy-900 hover:bg-navy-800 text-gold-400 font-semibold text-xs sm:text-sm transition-all"
-          >
-            View in Client Portal
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Slide-Over Client Portal Drawer -->
-  <div id="portal-drawer" class="fixed inset-0 z-50 hidden">
-    <div onclick="togglePortalDrawer(false)" class="absolute inset-0 bg-navy-950/60 backdrop-blur-xs"></div>
-    <aside class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-white shadow-2xl border-l border-slate-200 flex flex-col">
-      <div class="bg-navy-900 text-white px-6 py-5 flex items-center justify-between">
-        <div>
-          <span class="text-[11px] font-semibold uppercase tracking-widest text-gold-400">Trademark Client Portal</span>
-          <h3 class="font-serif text-xl font-bold">My Bookings &amp; Shortlist</h3>
-        </div>
-        <button onclick="togglePortalDrawer(false)" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-navy-800" aria-label="Close Portal">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
-
-      <div class="grid grid-cols-2 border-b border-slate-200 bg-sand-50 text-xs font-semibold">
-        <button id="portal-tab-bookings" onclick="switchPortalTab('bookings')" class="py-3.5 border-b-2 border-navy-900 text-navy-900">
-          Appointments (<span id="tab-bookings-count">1</span>)
-        </button>
-        <button id="portal-tab-saved" onclick="switchPortalTab('saved')" class="py-3.5 border-b-2 border-transparent text-slate-500 hover:text-navy-900">
-          Saved Properties (<span id="tab-saved-count">0</span>)
-        </button>
-      </div>
-
-      <div id="portal-content" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
-
-      <div class="p-4 border-t border-slate-200 bg-sand-50 space-y-3">
-        <div class="rounded-xl bg-white border border-slate-200 p-3 text-xs space-y-1.5">
-          <p class="font-bold uppercase tracking-wider text-[10px] text-slate-500">Direct Concierge Assistance</p>
-          <div class="flex flex-wrap items-center justify-between gap-2">
-            <a href="tel:+50768637794" class="font-semibold text-navy-900 hover:text-gold-600">📞 +507 6863-7794</a>
-            <a href="https://wa.me/50768637794" target="_blank" rel="noopener noreferrer" class="font-semibold text-emerald-700 hover:underline">WhatsApp</a>
-          </div>
-          <a href="mailto:Trademarkintgroup@gmail.com" class="block font-medium text-slate-600 hover:text-navy-900 truncate">✉️ Trademarkintgroup@gmail.com</a>
-        </div>
-        <button
-          onclick="togglePortalDrawer(false); openBookingModal();"
-          class="w-full py-3 rounded-xl bg-navy-900 hover:bg-navy-800 text-gold-400 font-semibold text-sm transition-all"
-        >
-          + Schedule New Consultation
-        </button>
-      </div>
-    </aside>
-  </div>
-
-  <script>
-    const VISA_PROGRAMS = [
-      {
-        id: 'friendly-nations',
-        name: 'Friendly Nations Visa',
-        badge: 'Most Popular',
-        category: 'permanent',
-        threshold: '$200,000 Real Estate / CD or Local Job',
-        processingTime: '4 – 6 Months',
-        residencyPath: '2-Year Provisional → Permanent Residency',
-        dependents: 'Spouse, children under 25 (students), and dependent parents',
-        summary: 'Available to citizens of 50+ treaty nations (USA, Canada, UK, EU, Australia, etc.) via a $200k Panama property purchase, bank CD, or Panamanian employment contract.',
-      },
-      {
-        id: 'pensionado',
-        name: 'Pensionado (Retiree) Visa',
-        badge: 'Lifetime Benefits',
-        category: 'permanent',
-        threshold: '$1,000 / mo Lifetime Pension (+$250/dependent)',
-        processingTime: '3 – 5 Months',
-        residencyPath: 'Immediate Permanent Residency',
-        dependents: 'Spouse & dependent children under 18 (or 25 in university)',
-        summary: 'World-renowned retirement program granting immediate permanent residency plus statutory discounts on healthcare, dining, flights, and utility bills.',
-      },
-      {
-        id: 'qualified-investor',
-        name: 'Qualified Investor (Golden Visa)',
-        badge: 'Fast-Track 30 Days',
-        category: 'investor',
-        threshold: '$300,000 Real Estate or $500,000 Securities',
-        processingTime: '30 Business Days',
-        residencyPath: 'Immediate Permanent Residency (No initial travel required)',
-        dependents: 'Spouse, children under 25, and dependent parents',
-        summary: 'VIP fast-track permanent residency processed in 30 days through a $300k titled real estate acquisition or $750k Panamanian bank fixed deposit.',
-      },
-      {
-        id: 'digital-nomad',
-        name: 'Digital Nomad (Short-Term Remote)',
-        badge: 'Tax-Exempt Foreign Income',
-        category: 'temporary',
-        threshold: '$36,000 / year ($3,000 / mo) Foreign Income',
-        processingTime: '3 – 6 Weeks',
-        residencyPath: '9-Month Visa (Renewable once for 18 months total)',
-        dependents: 'Individual applicant (Family members apply separately)',
-        summary: 'Designed for remote employees and international freelancers working for non-Panamanian companies, exempting foreign-sourced income from local tax.',
-      },
-      {
-        id: 'business-investor',
-        name: 'Business / Macro-Enterprise Visa',
-        badge: 'Corporate Relocation',
-        category: 'investor',
-        threshold: '$160,000 Minimum Share Capital',
-        processingTime: '4 – 6 Months',
-        residencyPath: '2-Year Provisional → Permanent Residency',
-        dependents: 'Spouse, children under 25, and dependent parents',
-        summary: 'Ideal for entrepreneurs establishing an operational Panamanian corporation employing at least 5 local staff at minimum wage.',
-      }
-    ];
-
-    const PROPERTIES = [
-      {
-        id: 'prop-101',
-        title: 'Cloud-Forest Estate & Coffee Finca Villa',
-        category: 'House for Sale',
-        region: 'Boquete',
-        price: '$645,000',
-        specs: '4 Beds • 3.5 Baths • 340 m² • 0.5 Hectare Lot',
-        tags: ['Mountain Retreat', 'Titled Land', 'Spring Water'],
-        gradient: 'from-emerald-900 via-teal-800 to-navy-900',
-        description: 'Architectural timber-and-stone residence overlooking Volcán Barú with mature shade-grown Geisha coffee trees and crisp 68°F year-round climate.'
-      },
-      {
-        id: 'prop-102',
-        title: 'Oceanfront Sky Residence — Punta Pacífica',
-        category: 'House for Rent',
-        region: 'Panama City',
-        price: '$4,200 / mo',
-        specs: '3 Beds • 3.5 Baths • 265 m² • 2 Parking',
-        tags: ['Ocean View', 'Turnkey Rental', 'Executive Tower'],
-        gradient: 'from-navy-900 via-slate-800 to-sky-900',
-        description: 'High-floor luxury residence with panoramic Pacific Bay views, private elevator lobby, full backup generator, and concierge walking distance to Johns Hopkins-affiliated hospital.'
-      },
-      {
-        id: 'prop-103',
-        title: 'Playa Venao Ridge Development Parcel',
-        category: 'Land for Sale',
-        region: 'Pedasí',
-        price: '$295,000',
-        specs: '2.4 Hectares (24,000 m²) • Paved Road Access',
-        tags: ['Ocean View', 'Titled Land', 'Golden Visa Eligible'],
-        gradient: 'from-amber-900 via-stone-800 to-navy-900',
-        description: 'Fully titled gentle hillside acreage 6 minutes from Playa Venao surf breaks. Verified municipal water, power at lot line, and clear Public Registry title.'
-      },
-      {
-        id: 'prop-104',
-        title: 'Golf & Beach Club Contemporary Villa',
-        category: 'House for Sale',
-        region: 'Coronado',
-        price: '$489,000',
-        specs: '3 Beds • 3 Baths • 290 m² • Private Pool',
-        tags: ['Turnkey Rental', 'Gated Community', '1 Hr to City'],
-        gradient: 'from-sky-900 via-cyan-900 to-navy-950',
-        description: 'Single-level tropical modern home inside Coronado’s premier gated golf enclave, featuring covered outdoor kitchen, saltwater pool, and solar battery backup.'
-      },
-      {
-        id: 'prop-105',
-        title: 'Tierras Altas Equestrian & Orchard Acreage',
-        category: 'Land for Sale',
-        region: 'Volcán',
-        price: '$215,000',
-        specs: '3.8 Hectares (38,000 m²) • Fertile Volcanic Soil',
-        tags: ['Mountain Retreat', 'Titled Land', 'Friendly Nations Eligible'],
-        gradient: 'from-teal-950 via-emerald-900 to-slate-900',
-        description: 'Expansive flat-to-rolling pastureland at 4,600 ft elevation with year-round creek frontage, ideal for a boutique eco-homestead or agricultural investment.'
-      },
-      {
-        id: 'prop-106',
-        title: 'Overwater Sunset Villa — Isla Carenero',
-        category: 'House for Rent',
-        region: 'Bocas del Toro',
-        price: '$3,100 / mo',
-        specs: '2 Beds • 2 Baths • 160 m² • Private Boat Slip',
-        tags: ['Ocean View', 'Turnkey Rental', 'Off-Grid Solar'],
-        gradient: 'from-cyan-950 via-teal-900 to-navy-950',
-        description: 'Custom hardwood Caribbean sanctuary with deep-water dock, high-speed Starlink fiber-grade internet, and 3-minute water taxi access to Bocas Town.'
-      }
-    ];
-
-    let activeVisaFilter = 'all';
-    let activePropertyCategory = 'all';
-    let activeRegionFilter = 'all';
-    let selectedBookingContext = '';
-    let savedPropertyIds = ['prop-101'];
-    let lastReceiptText = '';
-    let currentPortalTab = 'bookings';
-
-    let clientBookings = [
-      {
-        ref: 'TIG-409182',
-        service: 'Legal Services & Visa Processing',
-        regions: 'Panama City, Boquete',
-        date: '2026-12-04',
-        time: '11:00 AM EST',
-        format: 'Video Call (Zoom / WhatsApp)',
-        clientName: 'Executive Discovery Session',
-        context: 'Friendly Nations Visa Strategy',
-        status: 'Confirmed'
-      }
-    ];
-
-    window.addEventListener('DOMContentLoaded', () => {
-      const tomorrow = new Date();
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      const minDateStr = tomorrow.toISOString().split('T')[0];
-      const inlineDate = document.getElementById('inline-date');
-      const modalDate = document.getElementById('modal-date');
-      if (inlineDate) {
-        inlineDate.min = minDateStr;
-        inlineDate.value = minDateStr;
-      }
-      if (modalDate) {
-        modalDate.min = minDateStr;
-        modalDate.value = minDateStr;
-      }
-
-      runVisaMatcher();
-      renderVisas();
-      renderProperties();
-      updatePortalUI();
-    });
-
-    function runVisaMatcher() {
-      const goal = document.getElementById('matcher-goal').value;
-      const budget = document.getElementById('matcher-budget').value;
-      const resultContainer = document.getElementById('matcher-result');
-
-      let recommended = VISA_PROGRAMS[0];
-      if (goal === 'retire' || budget === 'pension_1k') {
-        recommended = VISA_PROGRAMS.find(v => v.id === 'pensionado');
-      } else if (budget === 'invest_300k') {
-        recommended = VISA_PROGRAMS.find(v => v.id === 'qualified-investor');
-      } else if (goal === 'remote' || budget === 'remote_3k') {
-        recommended = VISA_PROGRAMS.find(v => v.id === 'digital-nomad');
-      } else if (goal === 'business' || budget === 'corp_160k') {
-        recommended = VISA_PROGRAMS.find(v => v.id === 'business-investor');
-      } else {
-        recommended = VISA_PROGRAMS.find(v => v.id === 'friendly-nations');
-      }
-
-      resultContainer.innerHTML = `
-        <div class="flex items-start justify-between gap-2">
-          <div>
-            <span class="inline-block text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-gold-500/20 text-gold-300 border border-gold-400/30">
-              Recommended Match
-            </span>
-            <h3 class="font-serif text-lg font-bold text-white mt-1">${recommended.name}</h3>
-          </div>
-          <span class="text-xs font-medium text-gold-400 whitespace-nowrap">${recommended.processingTime}</span>
-        </div>
-        <p class="text-xs text-slate-300 mt-1.5 leading-relaxed">${recommended.summary}</p>
-        <div class="mt-3 pt-3 border-t border-slate-800 flex items-center justify-between gap-2">
-          <span class="text-[11px] text-slate-400">${recommended.threshold}</span>
-          <button
-            type="button"
-            onclick="selectVisaForBooking('${recommended.name.replace(/'/g, "\\'")}')"
-            class="px-3 py-1.5 rounded-lg bg-gold-400 hover:bg-gold-300 text-navy-950 font-semibold text-xs transition-all shrink-0"
-          >
-            Consult on Visa →
-          </button>
-        </div>
-      `;
-    }
-
-    function filterVisas(category) {
-      activeVisaFilter = category;
-      document.querySelectorAll('.visa-filter-btn').forEach(btn => {
-        const isSelected = btn.getAttribute('data-visa-filter') === category;
-        btn.className = isSelected
-          ? 'visa-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-navy-900 text-white shadow-sm transition-all'
-          : 'visa-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium bg-white text-slate-700 border border-slate-200 hover:border-navy-900 transition-all';
-      });
-      renderVisas();
-    }
-
-    function renderVisas() {
-      const grid = document.getElementById('visa-grid');
-      const filtered = activeVisaFilter === 'all'
-        ? VISA_PROGRAMS
-        : VISA_PROGRAMS.filter(v => v.category === activeVisaFilter);
-
-      grid.innerHTML = filtered.map(visa => `
-        <article class="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between shadow-sm hover:shadow-lg hover:border-gold-400/70 transition-all">
-          <div>
-            <div class="flex items-center justify-between gap-2 mb-3">
-              <span class="px-2.5 py-1 rounded-lg bg-sand-100 text-navy-900 text-[11px] font-bold uppercase tracking-wider">
-                ${visa.badge}
-              </span>
-              <span class="text-xs font-semibold text-gold-600">${visa.processingTime}</span>
-            </div>
-
-            <h3 class="font-serif text-xl font-bold text-navy-900 mb-2">${visa.name}</h3>
-            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-5">
-              ${visa.summary}
-            </p>
-
-            <div class="space-y-2.5 border-t border-slate-100 pt-4 text-xs">
-              <div>
-                <span class="font-bold text-navy-900 block">Investment / Income Threshold:</span>
-                <span class="text-slate-600">${visa.threshold}</span>
-              </div>
-              <div>
-                <span class="font-bold text-navy-900 block">Residency Path:</span>
-                <span class="text-slate-600">${visa.residencyPath}</span>
-              </div>
-              <div>
-                <span class="font-bold text-navy-900 block">Dependents Covered:</span>
-                <span class="text-slate-600">${visa.dependents}</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="pt-6 mt-6 border-t border-slate-100">
-            <button
-              onclick="selectVisaForBooking('${visa.name.replace(/'/g, "\\'")}')"
-              class="w-full py-3 px-4 rounded-xl bg-navy-900 hover:bg-navy-800 text-white hover:text-gold-300 font-semibold text-xs sm:text-sm transition-all flex items-center justify-center gap-2"
-            >
-              <span>Select for Legal Consult</span>
-              <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </button>
-          </div>
-        </article>
-      `).join('');
-    }
-
-    function setPropertyCategory(cat) {
-      activePropertyCategory = cat;
-      document.querySelectorAll('.prop-cat-btn').forEach(btn => {
-        const isSelected = btn.getAttribute('data-prop-cat') === cat;
-        btn.className = isSelected
-          ? 'prop-cat-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-navy-900 text-white transition-all'
-          : 'prop-cat-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium bg-sand-50 text-slate-700 border border-slate-200 hover:border-navy-900 transition-all';
-      });
-      applyPropertyFilters();
-    }
-
-    function applyPropertyFilters() {
-      activeRegionFilter = document.getElementById('region-filter').value;
-      renderProperties();
-    }
-
-    function toggleSaveProperty(propId) {
-      const idx = savedPropertyIds.indexOf(propId);
-      const prop = PROPERTIES.find(p => p.id === propId);
-      if (idx > -1) {
-        savedPropertyIds.splice(idx, 1);
-        showToast(`Removed "${prop.title}" from saved shortlist.`);
-      } else {
-        savedPropertyIds.push(propId);
-        showToast(`Saved "${prop.title}" to your Client Portal.`);
-      }
-      renderProperties();
-      updatePortalUI();
-    }
-
-    function renderProperties() {
-      const grid = document.getElementById('property-grid');
-      const countLabel = document.getElementById('property-count-label');
-
-      const filtered = PROPERTIES.filter(p => {
-        const matchesCat = activePropertyCategory === 'all' || p.category === activePropertyCategory;
-        const matchesReg = activeRegionFilter === 'all' || p.region === activeRegionFilter;
-        return matchesCat && matchesReg;
-      });
-
-      countLabel.textContent = `Showing ${filtered.length} vetted listing${filtered.length === 1 ? '' : 's'}`;
-
-      if (filtered.length === 0) {
-        grid.innerHTML = `
-          <div class="col-span-full bg-sand-50 rounded-2xl border border-slate-200 p-10 text-center">
-            <p class="font-serif text-xl font-bold text-navy-900">No active listings match this exact filter combination.</p>
-            <p class="text-sm text-slate-600 mt-1">Our off-market pocket inventory includes additional homes and acreage across ${activeRegionFilter}.</p>
-            <button onclick="openBookingModal('House Hunting (Buy or Rent)', '${activeRegionFilter === 'all' ? 'Panama City' : activeRegionFilter}')" class="mt-4 px-5 py-2.5 rounded-xl bg-navy-900 text-gold-400 text-xs font-semibold">
-              Request Off-Market Portfolio
-            </button>
-          </div>
-        `;
-        return;
-      }
-
-      grid.innerHTML = filtered.map(prop => {
-        const isSaved = savedPropertyIds.includes(prop.id);
-        return `
-          <article class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl transition-all flex flex-col justify-between group">
-            <div>
-              <div class="relative h-48 bg-gradient-to-br ${prop.gradient} p-5 flex flex-col justify-between text-white">
-                <div class="flex items-center justify-between gap-2">
-                  <span class="px-3 py-1 rounded-lg bg-navy-950/75 backdrop-blur-xs text-[11px] font-semibold uppercase tracking-wider text-gold-300 border border-gold-400/30">
-                    ${prop.category}
-                  </span>
-                  <button
-                    type="button"
-                    onclick="toggleSaveProperty('${prop.id}')"
-                    class="w-9 h-9 rounded-xl bg-navy-950/70 hover:bg-navy-950 flex items-center justify-center transition-colors"
-                    aria-label="Save property"
-                    title="${isSaved ? 'Remove from saved' : 'Save to Client Portal'}"
-                  >
-                    <svg class="w-4 h-4 ${isSaved ? 'text-gold-400 fill-gold-400' : 'text-white'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-                    </svg>
-                  </button>
-                </div>
-
-                <div>
-                  <div class="flex items-center gap-1.5 text-xs text-slate-200 font-medium">
-                    <svg class="w-3.5 h-3.5 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    <span>${prop.region}, Panama</span>
-                  </div>
-                  <p class="font-serif text-2xl font-bold text-white mt-0.5">${prop.price}</p>
-                </div>
-              </div>
-
-              <div class="p-6">
-                <h3 class="font-serif text-lg font-bold text-navy-900 group-hover:text-gold-600 transition-colors">
-                  ${prop.title}
-                </h3>
-                <p class="text-xs font-semibold text-slate-500 mt-1">${prop.specs}</p>
-                <p class="text-xs sm:text-sm text-slate-600 mt-3 leading-relaxed">
-                  ${prop.description}
-                </p>
-
-                <div class="flex flex-wrap gap-1.5 mt-4">
-                  ${prop.tags.map(tag => `
-                    <span class="px-2.5 py-1 rounded-md bg-sand-100 text-slate-700 text-[11px] font-medium">
-                      ${tag}
-                    </span>
-                  `).join('')}
-                </div>
-              </div>
-            </div>
-
-            <div class="px-6 pb-6 pt-2">
-              <button
-                onclick="selectPropertyForBooking('${prop.id}')"
-                class="w-full py-3 px-4 rounded-xl bg-sand-100 hover:bg-navy-900 text-navy-900 hover:text-gold-400 border border-slate-200 hover:border-navy-900 font-semibold text-xs sm:text-sm transition-all"
-              >
-                Schedule Viewing / Scouting Tour
-              </button>
-            </div>
-          </article>
-        `;
-      }).join('');
-    }
-
-    function selectVisaForBooking(visaName) {
-      selectedBookingContext = `Visa Program: ${visaName}`;
-      openBookingModal('Legal Services & Visa Processing', 'Panama City', selectedBookingContext);
-    }
-
-    function selectPropertyForBooking(propId) {
-      const prop = PROPERTIES.find(p => p.id === propId);
-      if (!prop) return;
-      const serviceType = prop.category === 'Land for Sale'
-        ? 'Land Acquisition & Due Diligence'
-        : 'House Hunting (Buy or Rent)';
-      selectedBookingContext = `${prop.title} (${prop.region} — ${prop.price})`;
-      openBookingModal(serviceType, prop.region, selectedBookingContext);
-    }
-
-    function openBookingModal(service = 'Legal Services & Visa Processing', region = 'Panama City', contextText = '') {
-      const modal = document.getElementById('booking-modal');
-      const serviceSelect = document.getElementById('modal-service');
-      const regionSelect = document.getElementById('modal-region');
-      const contextBanner = document.getElementById('modal-context-banner');
-      const contextLabel = document.getElementById('modal-context-label');
-
-      if (serviceSelect) serviceSelect.value = service;
-      if (regionSelect && ['Panama City', 'Boquete', 'Volcán', 'Pedasí', 'Coronado', 'Bocas del Toro'].includes(region)) {
-        regionSelect.value = region;
-      }
-
-      if (contextText) {
-        selectedBookingContext = contextText;
-        contextLabel.textContent = contextText;
-        contextBanner.classList.remove('hidden');
-        document.getElementById('inline-context-text').textContent = contextText;
-        document.getElementById('inline-context-box').classList.remove('hidden');
-      } else {
-        contextBanner.classList.add('hidden');
-      }
-
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-    }
-
-    function closeBookingModal() {
-      const modal = document.getElementById('booking-modal');
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-    }
-
-    function clearBookingContext() {
-      selectedBookingContext = '';
-      document.getElementById('inline-context-box').classList.add('hidden');
-      document.getElementById('modal-context-banner').classList.add('hidden');
-    }
-
-    function handleBookingSubmit(event, source) {
-      event.preventDefault();
-
-      let service, regions, date, time, format, clientName, email, phone, notes;
-
-      if (source === 'inline') {
-        const checkedService = document.querySelector('input[name="inline_service"]:checked');
-        service = checkedService ? checkedService.value : 'Legal Services & Visa Processing';
-        const checkedRegions = Array.from(document.querySelectorAll('input[name="inline_regions"]:checked')).map(el => el.value);
-        regions = checkedRegions.length > 0 ? checkedRegions.join(', ') : 'Panama City';
-        date = document.getElementById('inline-date').value;
-        time = document.getElementById('inline-time').value;
-        format = document.getElementById('inline-format').value;
-        clientName = document.getElementById('inline-name').value.trim();
-        email = document.getElementById('inline-email').value.trim();
-        phone = document.getElementById('inline-phone').value.trim();
-        notes = document.getElementById('inline-notes').value.trim();
-      } else {
-        service = document.getElementById('modal-service').value;
-        regions = document.getElementById('modal-region').value;
-        date = document.getElementById('modal-date').value;
-        time = document.getElementById('modal-time').value;
-        format = document.getElementById('modal-format').value;
-        clientName = document.getElementById('modal-name').value.trim();
-        email = document.getElementById('modal-email').value.trim();
-        phone = document.getElementById('modal-phone').value.trim();
-        notes = document.getElementById('modal-notes').value.trim();
-        closeBookingModal();
-      }
-
-      const refCode = 'TIG-' + Math.floor(100000 + Math.random() * 900000);
-      const newBooking = {
-        ref: refCode,
-        service,
-        regions,
-        date,
-        time,
-        format,
-        clientName,
-        email,
-        phone,
-        context: selectedBookingContext || notes || 'General Advisory',
-        status: 'Confirmed'
-      };
-
-      clientBookings.unshift(newBooking);
-      updatePortalUI();
-      showReceiptModal(newBooking);
-
-      if (source === 'inline') {
-        document.getElementById('inline-name').value = '';
-        document.getElementById('inline-email').value = '';
-        document.getElementById('inline-phone').value = '';
-        document.getElementById('inline-notes').value = '';
-      } else {
-        document.getElementById('modal-name').value = '';
-        document.getElementById('modal-email').value = '';
-        document.getElementById('modal-phone').value = '';
-        document.getElementById('modal-notes').value = '';
-      }
-      clearBookingContext();
-    }
-
-    function showReceiptModal(booking) {
-      document.getElementById('receipt-ref').textContent = `REFERENCE: ${booking.ref}`;
-      document.getElementById('receipt-details').innerHTML = `
-        <div class="flex justify-between gap-4 border-b border-slate-200 pb-2">
-          <span class="text-slate-500">Client:</span>
-          <span class="font-semibold text-navy-900 text-right">${booking.clientName}</span>
-        </div>
-        <div class="flex justify-between gap-4 border-b border-slate-200 pb-2">
-          <span class="text-slate-500">Service:</span>
-          <span class="font-semibold text-navy-900 text-right">${booking.service}</span>
-        </div>
-        <div class="flex justify-between gap-4 border-b border-slate-200 pb-2">
-          <span class="text-slate-500">Destinations:</span>
-          <span class="font-semibold text-navy-900 text-right">${booking.regions}</span>
-        </div>
-        <div class="flex justify-between gap-4 border-b border-slate-200 pb-2">
-          <span class="text-slate-500">Date &amp; Time:</span>
-          <span class="font-semibold text-navy-900 text-right">${booking.date} at ${booking.time}</span>
-        </div>
-        <div class="flex justify-between gap-4 border-b border-slate-200 pb-2">
-          <span class="text-slate-500">Format:</span>
-          <span class="font-semibold text-navy-900 text-right">${booking.format}</span>
-        </div>
-        <div class="pt-1 text-xs text-slate-600 space-y-1">
-          <p class="font-bold text-navy-900">Trademark International Group Concierge:</p>
-          <p>Phone / WhatsApp: <a href="tel:+50768637794" class="font-semibold text-navy-900 underline">507-6863-7794</a></p>
-          <p>Email: <a href="mailto:Trademarkintgroup@gmail.com" class="font-semibold text-navy-900 underline">Trademarkintgroup@gmail.com</a></p>
-        </div>
-      `;
-
-      lastReceiptText = `Trademark International Group Appointment (${booking.ref})\nClient: ${booking.clientName}\nService: ${booking.service}\nRegions: ${booking.regions}\nWhen: ${booking.date} at ${booking.time}\nFormat: ${booking.format}\nDirect Phone / WhatsApp: +507 6863-7794\nEmail: Trademarkintgroup@gmail.com`;
-
-      const modal = document.getElementById('receipt-modal');
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-    }
-
-    function copyTextToClipboard(text, successMsg) {
-      const textarea = document.createElement('textarea');
-      textarea.value = text;
-      document.body.appendChild(textarea);
-      textarea.select();
-      try {
-        document.execCommand('copy');
-        showToast(successMsg);
-      } catch (err) {
-        showToast('Unable to copy automatically.');
-      }
-      document.body.removeChild(textarea);
-    }
-
-    function copyReceiptSummary() {
-      copyTextToClipboard(lastReceiptText, 'Calendar summary copied to clipboard.');
-    }
-
-    function closeReceiptAndOpenPortal() {
-      const modal = document.getElementById('receipt-modal');
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-      togglePortalDrawer(true);
-    }
-
-    function togglePortalDrawer(open) {
-      const drawer = document.getElementById('portal-drawer');
-      if (open) {
-        drawer.classList.remove('hidden');
-        updatePortalUI();
-      } else {
-        drawer.classList.add('hidden');
-      }
-    }
-
-    function switchPortalTab(tab) {
-      currentPortalTab = tab;
-      const bTab = document.getElementById('portal-tab-bookings');
-      const sTab = document.getElementById('portal-tab-saved');
-
-      if (tab === 'bookings') {
-        bTab.className = 'py-3.5 border-b-2 border-navy-900 text-navy-900';
-        sTab.className = 'py-3.5 border-b-2 border-transparent text-slate-500 hover:text-navy-900';
-      } else {
-        sTab.className = 'py-3.5 border-b-2 border-navy-900 text-navy-900';
-        bTab.className = 'py-3.5 border-b-2 border-transparent text-slate-500 hover:text-navy-900';
-      }
-      renderPortalContent();
-    }
-
-    function updatePortalUI() {
-      const totalBadge = clientBookings.length + savedPropertyIds.length;
-      document.getElementById('portal-badge').textContent = totalBadge;
-      document.getElementById('tab-bookings-count').textContent = clientBookings.length;
-      document.getElementById('tab-saved-count').textContent = savedPropertyIds.length;
-      renderPortalContent();
-    }
-
-    function renderPortalContent() {
-      const container = document.getElementById('portal-content');
-
-      if (currentPortalTab === 'bookings') {
-        if (clientBookings.length === 0) {
-          container.innerHTML = `<p class="text-sm text-slate-500 text-center py-8">No scheduled appointments yet.</p>`;
-          return;
-        }
-
-        container.innerHTML = clientBookings.map(b => `
-          <div class="rounded-xl border border-slate-200 bg-sand-50 p-4 space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-[11px] font-mono font-bold text-navy-900 bg-white px-2 py-0.5 rounded border border-slate-200">${b.ref}</span>
-              <span class="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">${b.status}</span>
-            </div>
-            <h4 class="font-serif text-base font-bold text-navy-900">${b.service}</h4>
-            <p class="text-xs text-slate-600"><strong class="text-navy-900">When:</strong> ${b.date} • ${b.time}</p>
-            <p class="text-xs text-slate-600"><strong class="text-navy-900">Regions:</strong> ${b.regions}</p>
-            <p class="text-xs text-slate-600"><strong class="text-navy-900">Format:</strong> ${b.format}</p>
-            ${b.context ? `<p class="text-xs text-gold-600 font-medium pt-1 border-t border-slate-200/80">Focus: ${b.context}</p>` : ''}
-          </div>
-        `).join('');
-      } else {
-        const savedProps = PROPERTIES.filter(p => savedPropertyIds.includes(p.id));
-        if (savedProps.length === 0) {
-          container.innerHTML = `
-            <div class="text-center py-10 space-y-2">
-              <p class="text-sm font-medium text-navy-900">Your property shortlist is empty.</p>
-              <p class="text-xs text-slate-500">Click the bookmark icon on any house or land listing to save it here.</p>
-            </div>
-          `;
-          return;
-        }
-
-        container.innerHTML = savedProps.map(p => `
-          <div class="rounded-xl border border-slate-200 bg-white p-4 space-y-2 shadow-xs">
-            <div class="flex items-start justify-between gap-2">
-              <div>
-                <span class="text-[10px] font-bold uppercase tracking-wider text-gold-600">${p.region} • ${p.category}</span>
-                <h4 class="font-serif text-sm font-bold text-navy-900 mt-0.5">${p.title}</h4>
-              </div>
-              <button onclick="toggleSaveProperty('${p.id}')" class="text-xs text-slate-400 hover:text-red-600" title="Remove">✕</button>
-            </div>
-            <p class="text-sm font-bold text-navy-900">${p.price}</p>
-            <button
-              onclick="togglePortalDrawer(false); selectPropertyForBooking('${p.id}');"
-              class="w-full py-2 rounded-lg bg-sand-100 hover:bg-navy-900 text-navy-900 hover:text-gold-400 text-xs font-semibold transition-colors"
-            >
-              Book Private Viewing
-            </button>
-          </div>
-        `).join('');
-      }
-    }
-
-    function toggleMobileMenu() {
-      const menu = document.getElementById('mobile-menu');
-      menu.classList.toggle('hidden');
-    }
-
-    function showToast(message) {
-      const container = document.getElementById('toast-container');
-      const toast = document.createElement('div');
-      toast.className = 'pointer-events-auto bg-navy-900 text-white border border-gold-400/50 rounded-xl px-4 py-3 shadow-xl text-xs sm:text-sm flex items-center gap-2.5 transition-all';
-      toast.innerHTML = `
-        <span class="w-2 h-2 rounded-full bg-gold-400 shrink-0"></span>
-        <span>${message}</span>
-      `;
-      container.appendChild(toast);
-      setTimeout(() => {
-        toast.style.opacity = '0';
-        setTimeout(() => toast.remove(), 300);
-      }, 3200);
-    }
-  </script>
-</body>
-</html>
+            class="flex-1 px-4 py-2.5 rounded-xl bg-navy-900 hover:bg-navy-800 text-gold-400 font-semibold text-xs sm:text
