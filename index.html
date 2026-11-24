@@ -12,68 +12,6 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Tailwind Configuration -->
   <script>
-
-    // =========================================================================
-    // LIGHTBOX PHOTO VIEWER
-    // =========================================================================
-    let lightboxPropId = null;
-    let lightboxIndex = 0;
-
-    function openLightbox(propId, idx = 0) {
-      const prop = PROPERTIES.find(p => p.id === propId);
-      if (!prop || !Array.isArray(prop.images) || prop.images.length === 0) return;
-      lightboxPropId = propId;
-      lightboxIndex = ((idx % prop.images.length) + prop.images.length) % prop.images.length;
-      renderLightbox();
-      const modal = document.getElementById('lightbox-modal');
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-    }
-
-    function renderLightbox() {
-      const prop = PROPERTIES.find(p => p.id === lightboxPropId);
-      if (!prop) return;
-      const imgs = prop.images;
-      const curSrc = imgs[lightboxIndex];
-      document.getElementById('lightbox-title').textContent = prop.title;
-      document.getElementById('lightbox-counter').textContent = `Foto ${lightboxIndex + 1} de ${imgs.length} • ${prop.region}, Panama (${prop.price})`;
-      const imgEl = document.getElementById('lightbox-img');
-      imgEl.src = curSrc;
-      imgEl.alt = `${prop.title} - foto ${lightboxIndex + 1}`;
-      const prevBtn = document.getElementById('lightbox-prev');
-      const nextBtn = document.getElementById('lightbox-next');
-      if (imgs.length > 1) {
-        prevBtn.classList.remove('hidden');
-        nextBtn.classList.remove('hidden');
-      } else {
-        prevBtn.classList.add('hidden');
-        nextBtn.classList.add('hidden');
-      }
-    }
-
-    function stepLightbox(delta) {
-      const prop = PROPERTIES.find(p => p.id === lightboxPropId);
-      if (!prop || !prop.images.length) return;
-      lightboxIndex = (lightboxIndex + delta + prop.images.length) % prop.images.length;
-      propertyPhotoIndex[lightboxPropId] = lightboxIndex;
-      renderLightbox();
-      renderProperties();
-    }
-
-    function closeLightbox() {
-      const modal = document.getElementById('lightbox-modal');
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-    }
-
-    document.addEventListener('keydown', (e) => {
-      const modal = document.getElementById('lightbox-modal');
-      if (!modal || modal.classList.contains('hidden')) return;
-      if (e.key === 'Escape') closeLightbox();
-      if (e.key === 'ArrowLeft') stepLightbox(-1);
-      if (e.key === 'ArrowRight') stepLightbox(1);
-    });
-
     tailwind.config = {
       theme: {
         extend: {
@@ -216,7 +154,6 @@
 
   <!-- Hero Section -->
   <section class="relative bg-navy-950 text-white overflow-hidden">
-    <!-- Subtle Geometric & Ambient Gradient Accents -->
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(212,177,106,0.16),_transparent_50%)] pointer-events-none"></div>
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_rgba(29,53,92,0.45),_transparent_55%)] pointer-events-none"></div>
 
@@ -290,7 +227,6 @@
             </p>
 
             <div class="space-y-4">
-              <!-- Primary Goal Selector -->
               <div>
                 <label for="matcher-goal" class="block text-xs font-medium text-slate-300 mb-1.5">1. Primary Relocation Goal</label>
                 <select
@@ -305,7 +241,6 @@
                 </select>
               </div>
 
-              <!-- Budget / Income Tier Selector -->
               <div>
                 <label for="matcher-budget" class="block text-xs font-medium text-slate-300 mb-1.5">2. Monthly Income or Capital Tier</label>
                 <select
@@ -321,10 +256,7 @@
                 </select>
               </div>
 
-              <!-- Dynamic Recommendation Card -->
-              <div id="matcher-result" class="rounded-xl bg-navy-950/90 border border-gold-500/40 p-4 mt-4">
-                <!-- Populated dynamically by JS -->
-              </div>
+              <div id="matcher-result" class="rounded-xl bg-navy-950/90 border border-gold-500/40 p-4 mt-4"></div>
             </div>
           </div>
         </div>
@@ -345,7 +277,6 @@
         </p>
       </div>
 
-      <!-- Visa Filter Tabs -->
       <div id="visa-filters" class="flex flex-wrap gap-2">
         <button onclick="filterVisas('all')" data-visa-filter="all" class="visa-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-navy-900 text-white shadow-sm transition-all">
           All Programs
@@ -362,10 +293,7 @@
       </div>
     </div>
 
-    <!-- Visas Cards Grid -->
-    <div id="visa-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <!-- Populated dynamically via JS -->
-    </div>
+    <div id="visa-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
   </section>
 
   <!-- Section 3: Real Estate & Scouting Marketplace -->
@@ -382,7 +310,6 @@
           </p>
         </div>
 
-        <!-- Region Dropdown Filter -->
         <div class="flex flex-wrap items-center gap-3">
           <label for="region-filter" class="text-xs font-semibold uppercase tracking-wider text-slate-500">Region:</label>
           <select
@@ -401,7 +328,6 @@
         </div>
       </div>
 
-      <!-- Category Filter Pills -->
       <div class="flex flex-wrap items-center justify-between gap-4 pb-8 mb-8 border-b border-slate-200">
         <div class="flex flex-wrap gap-2">
           <button onclick="setPropertyCategory('all')" data-prop-cat="all" class="prop-cat-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-navy-900 text-white transition-all">
@@ -419,14 +345,11 @@
         </div>
 
         <p id="property-count-label" class="text-xs sm:text-sm text-slate-500 font-medium">
-          Showing 6 vetted listings
+          Showing 1 vetted listing
         </p>
       </div>
 
-      <!-- Property Grid -->
-      <div id="property-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
-        <!-- Populated dynamically via JS -->
-      </div>
+      <div id="property-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-7"></div>
     </div>
   </section>
 
@@ -442,46 +365,33 @@
       </p>
     </div>
 
-    <!-- 4-Step Timeline Grid -->
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      <!-- Step 1 -->
       <div class="relative bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-        <div class="w-11 h-11 rounded-xl bg-navy-900 text-gold-400 font-serif font-bold text-lg flex items-center justify-center mb-5">
-          01
-        </div>
+        <div class="w-11 h-11 rounded-xl bg-navy-900 text-gold-400 font-serif font-bold text-lg flex items-center justify-center mb-5">01</div>
         <h3 class="font-serif text-lg font-bold text-navy-900 mb-2">Strategy &amp; Visa Selection</h3>
         <p class="text-sm text-slate-600 leading-relaxed">
           One-on-one legal assessment to map your residency visa, apostille checklist, tax posture, and family dependent filings.
         </p>
       </div>
 
-      <!-- Step 2 -->
       <div class="relative bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-        <div class="w-11 h-11 rounded-xl bg-navy-900 text-gold-400 font-serif font-bold text-lg flex items-center justify-center mb-5">
-          02
-        </div>
+        <div class="w-11 h-11 rounded-xl bg-navy-900 text-gold-400 font-serif font-bold text-lg flex items-center justify-center mb-5">02</div>
         <h3 class="font-serif text-lg font-bold text-navy-900 mb-2">Scouting Tour &amp; Property</h3>
         <p class="text-sm text-slate-600 leading-relaxed">
           Private guided scouting across Boquete, Panama City, or the coasts. Full title search and escrow protection before you sign.
         </p>
       </div>
 
-      <!-- Step 3 -->
       <div class="relative bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-        <div class="w-11 h-11 rounded-xl bg-navy-900 text-gold-400 font-serif font-bold text-lg flex items-center justify-center mb-5">
-          03
-        </div>
+        <div class="w-11 h-11 rounded-xl bg-navy-900 text-gold-400 font-serif font-bold text-lg flex items-center justify-center mb-5">03</div>
         <h3 class="font-serif text-lg font-bold text-navy-900 mb-2">Legal Filing &amp; Banking</h3>
         <p class="text-sm text-slate-600 leading-relaxed">
           In-person accompaniment to Panama Immigration (SNM), personal &amp; corporate bank account opening, and biometric ID issuance.
         </p>
       </div>
 
-      <!-- Step 4 -->
       <div class="relative bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-        <div class="w-11 h-11 rounded-xl bg-navy-900 text-gold-400 font-serif font-bold text-lg flex items-center justify-center mb-5">
-          04
-        </div>
+        <div class="w-11 h-11 rounded-xl bg-navy-900 text-gold-400 font-serif font-bold text-lg flex items-center justify-center mb-5">04</div>
         <h3 class="font-serif text-lg font-bold text-navy-900 mb-2">Smooth Landing &amp; Setup</h3>
         <p class="text-sm text-slate-600 leading-relaxed">
           Driver’s license transfer, private health insurance, utilities, customs household shipping, and local concierge onboarding.
@@ -489,7 +399,6 @@
       </div>
     </div>
 
-    <!-- Why Trademark International Group Banner -->
     <div class="mt-12 rounded-2xl bg-navy-900 text-white p-8 sm:p-10 grid lg:grid-cols-12 gap-8 items-center">
       <div class="lg:col-span-8 space-y-3">
         <span class="text-xs font-semibold uppercase tracking-widest text-gold-400">Why Trademark International Group</span>
@@ -525,7 +434,6 @@
       </div>
 
       <div class="grid lg:grid-cols-12 gap-8 items-start">
-        <!-- Direct Concierge Contact Card -->
         <div class="lg:col-span-4 bg-navy-900 text-white rounded-2xl border border-slate-800 shadow-xl p-6 sm:p-8 space-y-6">
           <div>
             <span class="text-xs font-bold uppercase tracking-widest text-gold-400">Direct Advisory Desk</span>
@@ -535,7 +443,6 @@
             </p>
           </div>
 
-          <!-- Phone & WhatsApp Card -->
           <div class="rounded-xl bg-navy-950/90 border border-slate-800 p-4 space-y-3">
             <div class="flex items-center justify-between">
               <span class="text-[11px] font-bold uppercase tracking-wider text-gold-400">Panama Direct &amp; WhatsApp</span>
@@ -547,9 +454,6 @@
                 href="tel:+50768637794"
                 class="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-navy-800 hover:bg-navy-700 border border-slate-700 text-white text-xs font-semibold transition-all"
               >
-                <svg class="w-3.5 h-3.5 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
                 <span>Call Now</span>
               </a>
               <a
@@ -558,15 +462,11 @@
                 rel="noopener noreferrer"
                 class="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/40 text-emerald-300 text-xs font-semibold transition-all"
               >
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                </svg>
                 <span>WhatsApp Chat</span>
               </a>
             </div>
           </div>
 
-          <!-- Official Email Card -->
           <div class="rounded-xl bg-navy-950/90 border border-slate-800 p-4 space-y-3">
             <span class="block text-[11px] font-bold uppercase tracking-wider text-gold-400">Official Client Email</span>
             <p class="text-sm font-semibold text-white break-all">Trademarkintgroup@gmail.com</p>
@@ -575,9 +475,6 @@
                 href="mailto:Trademarkintgroup@gmail.com"
                 class="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-gold-400 hover:bg-gold-300 text-navy-950 text-xs font-semibold transition-all"
               >
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
                 <span>Send Email</span>
               </a>
               <button
@@ -585,9 +482,6 @@
                 onclick="copyTextToClipboard('Trademarkintgroup@gmail.com', 'Official email copied to clipboard.')"
                 class="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-navy-800 hover:bg-navy-700 border border-slate-700 text-slate-200 text-xs font-semibold transition-all"
               >
-                <svg class="w-3.5 h-3.5 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                </svg>
                 <span>Copy Email</span>
               </button>
             </div>
@@ -599,123 +493,167 @@
           </div>
         </div>
 
-        <!-- Embedded Booking Form Card -->
         <div class="lg:col-span-8 bg-white rounded-2xl border border-slate-200 shadow-xl p-6 sm:p-10">
           <form id="inline-booking-form" onsubmit="handleBookingSubmit(event, 'inline')" class="space-y-6">
-                  Pedasí
-                </span>
-              </label>
-              <label class="cursor-pointer">
-                <input type="checkbox" name="inline_regions" value="Coronado" class="peer sr-only" />
-                <span class="inline-block px-3.5 py-2 rounded-xl text-xs font-medium border border-slate-200 bg-sand-50 text-slate-700 peer-checked:bg-navy-900 peer-checked:text-white peer-checked:border-navy-900 transition-all">
-                  Coronado
-                </span>
-              </label>
-              <label class="cursor-pointer">
-                <input type="checkbox" name="inline_regions" value="Bocas del Toro" class="peer sr-only" />
-                <span class="inline-block px-3.5 py-2 rounded-xl text-xs font-medium border border-slate-200 bg-sand-50 text-slate-700 peer-checked:bg-navy-900 peer-checked:text-white peer-checked:border-navy-900 transition-all">
-                  Bocas del Toro
-                </span>
-              </label>
+            <div id="inline-context-box" class="hidden rounded-xl bg-sand-100 border border-gold-400/70 px-4 py-3 flex items-center justify-between gap-3">
+              <p class="text-xs sm:text-sm text-navy-900"><strong class="font-bold">Selected Item:</strong> <span id="inline-context-text"></span></p>
+              <button type="button" onclick="clearBookingContext()" class="text-xs text-slate-500 hover:text-navy-900 font-semibold">Clear</button>
             </div>
-          </div>
 
-          <!-- Step 3: Date, Time Slot & Format -->
-          <div class="grid sm:grid-cols-3 gap-4">
             <div>
-              <label for="inline-date" class="block text-xs font-bold uppercase tracking-wider text-navy-900 mb-1.5">3. Preferred Date *</label>
-              <input
-                type="date"
-                id="inline-date"
-                required
-                class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm text-navy-900 focus:outline-none focus:border-navy-900"
-              />
+              <span class="block text-xs font-bold uppercase tracking-wider text-navy-900 mb-2">1. Select Service Focus</span>
+              <div class="grid sm:grid-cols-2 gap-2.5">
+                <label class="cursor-pointer">
+                  <input type="radio" name="inline_service" value="Legal Services & Visa Processing" checked class="peer sr-only" />
+                  <span class="block px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium border border-slate-200 bg-sand-50 text-slate-700 peer-checked:bg-navy-900 peer-checked:text-gold-400 peer-checked:border-navy-900 transition-all">
+                    Legal Services &amp; Visa Processing
+                  </span>
+                </label>
+                <label class="cursor-pointer">
+                  <input type="radio" name="inline_service" value="Full Relocation Logistics & Scouting Tours" class="peer sr-only" />
+                  <span class="block px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium border border-slate-200 bg-sand-50 text-slate-700 peer-checked:bg-navy-900 peer-checked:text-gold-400 peer-checked:border-navy-900 transition-all">
+                    Full Relocation &amp; Scouting Tours
+                  </span>
+                </label>
+                <label class="cursor-pointer">
+                  <input type="radio" name="inline_service" value="House Hunting (Buy or Rent)" class="peer sr-only" />
+                  <span class="block px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium border border-slate-200 bg-sand-50 text-slate-700 peer-checked:bg-navy-900 peer-checked:text-gold-400 peer-checked:border-navy-900 transition-all">
+                    House Hunting (Buy or Rent)
+                  </span>
+                </label>
+                <label class="cursor-pointer">
+                  <input type="radio" name="inline_service" value="Land Acquisition & Due Diligence" class="peer sr-only" />
+                  <span class="block px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium border border-slate-200 bg-sand-50 text-slate-700 peer-checked:bg-navy-900 peer-checked:text-gold-400 peer-checked:border-navy-900 transition-all">
+                    Land Acquisition &amp; Due Diligence
+                  </span>
+                </label>
+              </div>
             </div>
+
             <div>
-              <label for="inline-time" class="block text-xs font-bold uppercase tracking-wider text-navy-900 mb-1.5">Time Slot (EST / Panama) *</label>
-              <select
-                id="inline-time"
-                required
+              <span class="block text-xs font-bold uppercase tracking-wider text-navy-900 mb-2">2. Target Regions</span>
+              <div class="flex flex-wrap gap-2">
+                <label class="cursor-pointer">
+                  <input type="checkbox" name="inline_regions" value="Panama City" class="peer sr-only" />
+                  <span class="inline-block px-3.5 py-2 rounded-xl text-xs font-medium border border-slate-200 bg-sand-50 text-slate-700 peer-checked:bg-navy-900 peer-checked:text-white peer-checked:border-navy-900 transition-all">Panama City</span>
+                </label>
+                <label class="cursor-pointer">
+                  <input type="checkbox" name="inline_regions" value="Boquete" class="peer sr-only" />
+                  <span class="inline-block px-3.5 py-2 rounded-xl text-xs font-medium border border-slate-200 bg-sand-50 text-slate-700 peer-checked:bg-navy-900 peer-checked:text-white peer-checked:border-navy-900 transition-all">Boquete</span>
+                </label>
+                <label class="cursor-pointer">
+                  <input type="checkbox" name="inline_regions" value="Volcán" class="peer sr-only" />
+                  <span class="inline-block px-3.5 py-2 rounded-xl text-xs font-medium border border-slate-200 bg-sand-50 text-slate-700 peer-checked:bg-navy-900 peer-checked:text-white peer-checked:border-navy-900 transition-all">Volcán</span>
+                </label>
+                <label class="cursor-pointer">
+                  <input type="checkbox" name="inline_regions" value="Pedasí" class="peer sr-only" />
+                  <span class="inline-block px-3.5 py-2 rounded-xl text-xs font-medium border border-slate-200 bg-sand-50 text-slate-700 peer-checked:bg-navy-900 peer-checked:text-white peer-checked:border-navy-900 transition-all">Pedasí</span>
+                </label>
+                <label class="cursor-pointer">
+                  <input type="checkbox" name="inline_regions" value="Coronado" class="peer sr-only" />
+                  <span class="inline-block px-3.5 py-2 rounded-xl text-xs font-medium border border-slate-200 bg-sand-50 text-slate-700 peer-checked:bg-navy-900 peer-checked:text-white peer-checked:border-navy-900 transition-all">Coronado</span>
+                </label>
+                <label class="cursor-pointer">
+                  <input type="checkbox" name="inline_regions" value="Bocas del Toro" class="peer sr-only" />
+                  <span class="inline-block px-3.5 py-2 rounded-xl text-xs font-medium border border-slate-200 bg-sand-50 text-slate-700 peer-checked:bg-navy-900 peer-checked:text-white peer-checked:border-navy-900 transition-all">Bocas del Toro</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="grid sm:grid-cols-3 gap-4">
+              <div>
+                <label for="inline-date" class="block text-xs font-bold uppercase tracking-wider text-navy-900 mb-1.5">3. Preferred Date *</label>
+                <input
+                  type="date"
+                  id="inline-date"
+                  required
+                  class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm text-navy-900 focus:outline-none focus:border-navy-900"
+                />
+              </div>
+              <div>
+                <label for="inline-time" class="block text-xs font-bold uppercase tracking-wider text-navy-900 mb-1.5">Time Slot (EST / Panama) *</label>
+                <select
+                  id="inline-time"
+                  required
+                  class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm text-navy-900 focus:outline-none focus:border-navy-900"
+                >
+                  <option value="09:30 AM EST">09:30 AM EST</option>
+                  <option value="11:00 AM EST">11:00 AM EST</option>
+                  <option value="02:00 PM EST">02:00 PM EST</option>
+                  <option value="04:30 PM EST">04:30 PM EST</option>
+                </select>
+              </div>
+              <div>
+                <label for="inline-format" class="block text-xs font-bold uppercase tracking-wider text-navy-900 mb-1.5">Consultation Format *</label>
+                <select
+                  id="inline-format"
+                  required
+                  class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm text-navy-900 focus:outline-none focus:border-navy-900"
+                >
+                  <option value="Video Call (Zoom / WhatsApp)">Video Call (Zoom / WhatsApp)</option>
+                  <option value="In-Person (Panama City Office)">In-Person (Panama City Office)</option>
+                  <option value="In-Person (Boquete / Chiriquí)">In-Person (Boquete / Chiriquí)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid sm:grid-cols-3 gap-4">
+              <div>
+                <label for="inline-name" class="block text-xs font-bold uppercase tracking-wider text-navy-900 mb-1.5">Full Name *</label>
+                <input
+                  type="text"
+                  id="inline-name"
+                  required
+                  placeholder="e.g., Jonathan Vance"
+                  class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm text-navy-900 focus:outline-none focus:border-navy-900"
+                />
+              </div>
+              <div>
+                <label for="inline-email" class="block text-xs font-bold uppercase tracking-wider text-navy-900 mb-1.5">Email Address *</label>
+                <input
+                  type="email"
+                  id="inline-email"
+                  required
+                  placeholder="jonathan@example.com"
+                  class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm text-navy-900 focus:outline-none focus:border-navy-900"
+                />
+              </div>
+              <div>
+                <label for="inline-phone" class="block text-xs font-bold uppercase tracking-wider text-navy-900 mb-1.5">Phone / WhatsApp *</label>
+                <input
+                  type="tel"
+                  id="inline-phone"
+                  required
+                  placeholder="+1 (555) 234-5678"
+                  class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm text-navy-900 focus:outline-none focus:border-navy-900"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label for="inline-notes" class="block text-xs font-bold uppercase tracking-wider text-navy-900 mb-1.5">
+                Relocation Timeline, Family Size, or Specific Property Notes
+              </label>
+              <textarea
+                id="inline-notes"
+                rows="2"
+                placeholder="Tell us about your target move date, dependents, or specific property criteria..."
                 class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm text-navy-900 focus:outline-none focus:border-navy-900"
+              ></textarea>
+            </div>
+
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
+              <p class="text-xs text-slate-500">
+                Confidential attorney-client inquiry. Instant booking receipt generated upon submission.
+              </p>
+              <button
+                type="submit"
+                class="px-8 py-3.5 rounded-xl bg-navy-900 hover:bg-navy-800 text-gold-400 font-semibold text-sm shadow-lg transition-all"
               >
-                <option value="09:30 AM EST">09:30 AM EST</option>
-                <option value="11:00 AM EST">11:00 AM EST</option>
-                <option value="02:00 PM EST">02:00 PM EST</option>
-                <option value="04:30 PM EST">04:30 PM EST</option>
-              </select>
+                Confirm Appointment
+              </button>
             </div>
-            <div>
-              <label for="inline-format" class="block text-xs font-bold uppercase tracking-wider text-navy-900 mb-1.5">Consultation Format *</label>
-              <select
-                id="inline-format"
-                required
-                class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm text-navy-900 focus:outline-none focus:border-navy-900"
-              >
-                <option value="Video Call (Zoom / WhatsApp)">Video Call (Zoom / WhatsApp)</option>
-                <option value="In-Person (Panama City Office)">In-Person (Panama City Office)</option>
-                <option value="In-Person (Boquete / Chiriquí)">In-Person (Boquete / Chiriquí)</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- Step 4: Client Details -->
-          <div class="grid sm:grid-cols-3 gap-4">
-            <div>
-              <label for="inline-name" class="block text-xs font-bold uppercase tracking-wider text-navy-900 mb-1.5">Full Name *</label>
-              <input
-                type="text"
-                id="inline-name"
-                required
-                placeholder="e.g., Jonathan Vance"
-                class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm text-navy-900 focus:outline-none focus:border-navy-900"
-              />
-            </div>
-            <div>
-              <label for="inline-email" class="block text-xs font-bold uppercase tracking-wider text-navy-900 mb-1.5">Email Address *</label>
-              <input
-                type="email"
-                id="inline-email"
-                required
-                placeholder="jonathan@example.com"
-                class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm text-navy-900 focus:outline-none focus:border-navy-900"
-              />
-            </div>
-            <div>
-              <label for="inline-phone" class="block text-xs font-bold uppercase tracking-wider text-navy-900 mb-1.5">Phone / WhatsApp *</label>
-              <input
-                type="tel"
-                id="inline-phone"
-                required
-                placeholder="+1 (555) 234-5678"
-                class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm text-navy-900 focus:outline-none focus:border-navy-900"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label for="inline-notes" class="block text-xs font-bold uppercase tracking-wider text-navy-900 mb-1.5">
-              Relocation Timeline, Family Size, or Specific Property Notes
-            </label>
-            <textarea
-              id="inline-notes"
-              rows="2"
-              placeholder="Tell us about your target move date, dependents, or specific property criteria..."
-              class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm text-navy-900 focus:outline-none focus:border-navy-900"
-            ></textarea>
-          </div>
-
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
-            <p class="text-xs text-slate-500">
-              Confidential attorney-client inquiry. Instant booking receipt generated upon submission.
-            </p>
-            <button
-              type="submit"
-              class="px-8 py-3.5 rounded-xl bg-navy-900 hover:bg-navy-800 text-gold-400 font-semibold text-sm shadow-lg transition-all"
-            >
-              Confirm Appointment
-            </button>
-          </div>
-        </form>
+          </form>
         </div>
       </div>
     </div>
@@ -768,25 +706,18 @@
     </div>
   </footer>
 
-  <!-- Interactive Booking Modal (Triggered from Visa Cards, Property Cards, or Header CTA) -->
+  <!-- Interactive Booking Modal -->
   <div id="booking-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-navy-950/75 backdrop-blur-sm p-4 overflow-y-auto">
     <div class="bg-white rounded-2xl max-w-2xl w-full border border-slate-200 shadow-2xl overflow-hidden my-8">
-      <!-- Modal Header -->
       <div class="bg-navy-900 text-white px-6 py-5 flex items-center justify-between">
         <div>
           <span class="text-[11px] font-semibold uppercase tracking-widest text-gold-400">Trademark Concierge</span>
           <h3 class="font-serif text-xl font-bold">Schedule Private Consultation</h3>
         </div>
-        <button onclick="closeBookingModal()" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-navy-800 transition-colors" aria-label="Close Modal">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
+        <button onclick="closeBookingModal()" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-navy-800 transition-colors" aria-label="Close Modal">✕</button>
       </div>
 
-      <!-- Modal Form Body -->
       <form id="modal-booking-form" onsubmit="handleBookingSubmit(event, 'modal')" class="p-6 space-y-4">
-        <!-- Pre-selected Context Pill -->
         <div id="modal-context-banner" class="hidden rounded-xl bg-sand-100 border border-gold-400/70 px-4 py-2.5 text-xs sm:text-sm text-navy-900">
           <span class="font-bold">Selected Item:</span> <span id="modal-context-label"></span>
         </div>
@@ -859,12 +790,8 @@
         </div>
 
         <div class="flex items-center justify-end gap-3 pt-2 border-t border-slate-100">
-          <button type="button" onclick="closeBookingModal()" class="px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100">
-            Cancel
-          </button>
-          <button type="submit" class="px-6 py-2.5 rounded-xl bg-navy-900 hover:bg-navy-800 text-gold-400 font-semibold text-sm shadow-md">
-            Confirm Booking
-          </button>
+          <button type="button" onclick="closeBookingModal()" class="px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100">Cancel</button>
+          <button type="submit" class="px-6 py-2.5 rounded-xl bg-navy-900 hover:bg-navy-800 text-gold-400 font-semibold text-sm shadow-md">Confirm Booking</button>
         </div>
       </form>
     </div>
@@ -874,32 +801,19 @@
   <div id="receipt-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-navy-950/80 backdrop-blur-sm p-4">
     <div class="bg-white rounded-2xl max-w-lg w-full border border-slate-200 shadow-2xl overflow-hidden">
       <div class="bg-navy-900 text-white p-6 text-center">
-        <div class="w-12 h-12 rounded-full bg-gold-400 text-navy-950 flex items-center justify-center mx-auto mb-3 shadow-lg">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
-          </svg>
-        </div>
+        <div class="w-12 h-12 rounded-full bg-gold-400 text-navy-950 flex items-center justify-center mx-auto mb-3 shadow-lg">✓</div>
         <span class="text-xs uppercase tracking-widest text-gold-400 font-semibold">Appointment Confirmed</span>
         <h3 class="font-serif text-2xl font-bold mt-1">Booking Dossier Created</h3>
         <p id="receipt-ref" class="text-xs font-mono text-slate-300 mt-1">REF: TIG-884210</p>
       </div>
 
       <div class="p-6 space-y-4">
-        <div id="receipt-details" class="rounded-xl bg-sand-50 border border-slate-200 p-4 space-y-2 text-xs sm:text-sm">
-          <!-- Populated dynamically -->
-        </div>
-
+        <div id="receipt-details" class="rounded-xl bg-sand-50 border border-slate-200 p-4 space-y-2 text-xs sm:text-sm"></div>
         <div class="flex flex-col sm:flex-row gap-3 pt-2">
-          <button
-            onclick="copyReceiptSummary()"
-            class="flex-1 px-4 py-2.5 rounded-xl border border-slate-300 hover:bg-slate-50 text-navy-900 font-semibold text-xs sm:text-sm transition-all"
-          >
+          <button onclick="copyReceiptSummary()" class="flex-1 px-4 py-2.5 rounded-xl border border-slate-300 hover:bg-slate-50 text-navy-900 font-semibold text-xs sm:text-sm transition-all">
             Copy Calendar Summary
           </button>
-          <button
-            onclick="closeReceiptAndOpenPortal()"
-            class="flex-1 px-4 py-2.5 rounded-xl bg-navy-900 hover:bg-navy-800 text-gold-400 font-semibold text-xs sm:text-sm transition-all"
-          >
+          <button onclick="closeReceiptAndOpenPortal()" class="flex-1 px-4 py-2.5 rounded-xl bg-navy-900 hover:bg-navy-800 text-gold-400 font-semibold text-xs sm:text-sm transition-all">
             View in Client Portal
           </button>
         </div>
@@ -907,24 +821,18 @@
     </div>
   </div>
 
-  <!-- Slide-Over Client Portal Drawer ("My Saved & Bookings") -->
+  <!-- Slide-Over Client Portal Drawer -->
   <div id="portal-drawer" class="fixed inset-0 z-50 hidden">
     <div onclick="togglePortalDrawer(false)" class="absolute inset-0 bg-navy-950/60 backdrop-blur-xs"></div>
     <aside class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-white shadow-2xl border-l border-slate-200 flex flex-col">
-      <!-- Drawer Header -->
       <div class="bg-navy-900 text-white px-6 py-5 flex items-center justify-between">
         <div>
           <span class="text-[11px] font-semibold uppercase tracking-widest text-gold-400">Trademark Client Portal</span>
           <h3 class="font-serif text-xl font-bold">My Bookings &amp; Shortlist</h3>
         </div>
-        <button onclick="togglePortalDrawer(false)" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-navy-800" aria-label="Close Portal">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
+        <button onclick="togglePortalDrawer(false)" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-navy-800" aria-label="Close Portal">✕</button>
       </div>
 
-      <!-- Drawer Tabs -->
       <div class="grid grid-cols-2 border-b border-slate-200 bg-sand-50 text-xs font-semibold">
         <button id="portal-tab-bookings" onclick="switchPortalTab('bookings')" class="py-3.5 border-b-2 border-navy-900 text-navy-900">
           Appointments (<span id="tab-bookings-count">1</span>)
@@ -934,12 +842,8 @@
         </button>
       </div>
 
-      <!-- Drawer Content Area -->
-      <div id="portal-content" class="flex-1 overflow-y-auto p-6 space-y-4">
-        <!-- Populated dynamically via JS -->
-      </div>
+      <div id="portal-content" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
 
-      <!-- Drawer Footer -->
       <div class="p-4 border-t border-slate-200 bg-sand-50 space-y-3">
         <div class="rounded-xl bg-white border border-slate-200 p-3 text-xs space-y-1.5">
           <p class="font-bold uppercase tracking-wider text-[10px] text-slate-500">Direct Concierge Assistance</p>
@@ -958,7 +862,6 @@
       </div>
     </aside>
   </div>
-
 
   <!-- Lightbox Modal for Large Photo Inspection -->
   <div id="lightbox-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-navy-950/95 backdrop-blur-md p-4" onclick="if(event.target===this) closeLightbox()">
@@ -983,10 +886,6 @@
 
   <!-- Application Data & Interactive Logic -->
   <script>
-
-    // =========================================================================
-    // LIGHTBOX PHOTO VIEWER
-    // =========================================================================
     let lightboxPropId = null;
     let lightboxIndex = 0;
 
@@ -1045,9 +944,6 @@
       if (e.key === 'ArrowRight') stepLightbox(1);
     });
 
-    // =========================================================================
-    // 1. CURATED DATA: PANAMA VISAS & RESIDENCY PROGRAMS
-    // =========================================================================
     const VISA_PROGRAMS = [
       {
         id: 'friendly-nations',
@@ -1106,9 +1002,6 @@
       }
     ];
 
-    // =========================================================================
-    // 2. CURATED DATA: REAL ESTATE & LAND LISTINGS ACROSS 6 PANAMA REGIONS
-    // =========================================================================
     const PROPERTIES = [
       {
         id: 'prop-201',
@@ -1138,11 +1031,10 @@
     let activePropertyCategory = 'all';
     let activeRegionFilter = 'all';
     let selectedBookingContext = '';
-    let savedPropertyIds = ['prop-101'];
+    let savedPropertyIds = [];
     let propertyPhotoIndex = {};
     let lastReceiptText = '';
 
-    // Pre-populated sample booking in Client Portal so user sees how it works immediately
     let clientBookings = [
       {
         ref: 'TIG-409182',
@@ -1157,11 +1049,7 @@
       }
     ];
 
-    // =========================================================================
-    // 4. INITIALIZATION & RENDERING
-    // =========================================================================
     window.addEventListener('DOMContentLoaded', () => {
-      // Set default minimum date to tomorrow for date inputs
       const tomorrow = new Date();
       tomorrow.setDate(tomorrow.getDate() + 1);
       const minDateStr = tomorrow.toISOString().split('T')[0];
@@ -1182,16 +1070,12 @@
       updatePortalUI();
     });
 
-    // =========================================================================
-    // 5. QUICK VISA MATCHER LOGIC
-    // =========================================================================
     function runVisaMatcher() {
       const goal = document.getElementById('matcher-goal').value;
       const budget = document.getElementById('matcher-budget').value;
       const resultContainer = document.getElementById('matcher-result');
 
-      let recommended = VISA_PROGRAMS[0]; // Default Friendly Nations
-
+      let recommended = VISA_PROGRAMS[0];
       if (goal === 'retire' || budget === 'pension_1k') {
         recommended = VISA_PROGRAMS.find(v => v.id === 'pensionado');
       } else if (budget === 'invest_300k') {
@@ -1228,9 +1112,6 @@
       `;
     }
 
-    // =========================================================================
-    // 6. VISAS DIRECTORY RENDERING & FILTERING
-    // =========================================================================
     function filterVisas(category) {
       activeVisaFilter = category;
       document.querySelectorAll('.visa-filter-btn').forEach(btn => {
@@ -1259,9 +1140,7 @@
             </div>
 
             <h3 class="font-serif text-xl font-bold text-navy-900 mb-2">${visa.name}</h3>
-            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-5">
-              ${visa.summary}
-            </p>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-5">${visa.summary}</p>
 
             <div class="space-y-2.5 border-t border-slate-100 pt-4 text-xs">
               <div>
@@ -1285,18 +1164,12 @@
               class="w-full py-3 px-4 rounded-xl bg-navy-900 hover:bg-navy-800 text-white hover:text-gold-300 font-semibold text-xs sm:text-sm transition-all flex items-center justify-center gap-2"
             >
               <span>Select for Legal Consult</span>
-              <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
             </button>
           </div>
         </article>
       `).join('');
     }
 
-    // =========================================================================
-    // 7. REAL ESTATE MARKETPLACE RENDERING & FILTERING
-    // =========================================================================
     function setPropertyCategory(cat) {
       activePropertyCategory = cat;
       document.querySelectorAll('.prop-cat-btn').forEach(btn => {
@@ -1362,109 +1235,94 @@
 
       grid.innerHTML = filtered.map(prop => {
         const isSaved = savedPropertyIds.includes(prop.id);
+        const imgs = Array.isArray(prop.images) && prop.images.length > 0 ? prop.images : [];
+        const curIdx = imgs.length > 0 ? ((propertyPhotoIndex[prop.id] || 0) % imgs.length + imgs.length) % imgs.length : 0;
+        const curImg = imgs.length > 0 ? imgs[curIdx] : '';
+
         return `
           <article class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl transition-all flex flex-col justify-between group">
             <div>
-              <!-- Visual Architectural Header Banner with Multi-Photo Gallery -->
-              ${(() => {
-                const imgs = Array.isArray(prop.images) && prop.images.length > 0 ? prop.images : [];
-                const curIdx = imgs.length > 0 ? ((propertyPhotoIndex[prop.id] || 0) % imgs.length + imgs.length) % imgs.length : 0;
-                const curImg = imgs.length > 0 ? imgs[curIdx] : '';
-                return `
-                  <div class="relative h-72 sm:h-80 lg:h-96 bg-gradient-to-br ${prop.gradient} flex flex-col justify-between text-white overflow-hidden">
-                    ${curImg ? `
-                      <img
-                        src="${curImg}"
-                        alt="${prop.title} - photo ${curIdx + 1}"
+              <div class="relative h-72 sm:h-80 lg:h-96 bg-gradient-to-br ${prop.gradient} flex flex-col justify-between text-white overflow-hidden">
+                ${curImg ? `
+                  <img
+                    src="${curImg}"
+                    alt="${prop.title} - photo ${curIdx + 1}"
+                    onclick="openLightbox('${prop.id}', ${curIdx})"
+                    onerror="this.style.display='none';"
+                    class="absolute inset-0 w-full h-full object-cover cursor-zoom-in transition-transform duration-300 group-hover:scale-[1.02]"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-t from-navy-950/85 via-navy-950/25 to-navy-950/45 pointer-events-none"></div>
+                ` : ''}
+
+                <div class="relative z-10 p-5 flex items-center justify-between gap-2">
+                  <span class="px-3 py-1 rounded-lg bg-navy-950/75 backdrop-blur-xs text-[11px] font-semibold uppercase tracking-wider text-gold-300 border border-gold-400/30">
+                    ${prop.category}
+                  </span>
+                  <div class="flex items-center gap-1.5">
+                    ${imgs.length > 0 ? `
+                      <button
+                        type="button"
                         onclick="openLightbox('${prop.id}', ${curIdx})"
-                        onerror="this.style.display='none';"
-                        class="absolute inset-0 w-full h-full object-cover cursor-zoom-in transition-transform duration-300 group-hover:scale-[1.02]"
-                      />
-                      <div class="absolute inset-0 bg-gradient-to-t from-navy-950/85 via-navy-950/25 to-navy-950/45 pointer-events-none"></div>
+                        class="px-2.5 py-1 rounded-lg bg-navy-950/80 hover:bg-navy-950 text-[11px] font-semibold text-gold-300 border border-white/15 transition-colors"
+                        title="Ampliar imagen"
+                      >
+                        ${imgs.length > 1 ? `${curIdx + 1} / ${imgs.length} • ` : ''}Ampliar ⤢
+                      </button>
                     ` : ''}
-
-                    <div class="relative z-10 p-5 flex items-center justify-between gap-2">
-                      <span class="px-3 py-1 rounded-lg bg-navy-950/75 backdrop-blur-xs text-[11px] font-semibold uppercase tracking-wider text-gold-300 border border-gold-400/30">
-                        ${prop.category}
-                      </span>
-                      <div class="flex items-center gap-1.5">
-                        ${imgs.length > 0 ? `
-                          <button
-                            type="button"
-                            onclick="openLightbox('${prop.id}', ${curIdx})"
-                            class="px-2.5 py-1 rounded-lg bg-navy-950/80 hover:bg-navy-950 text-[11px] font-semibold text-gold-300 border border-white/15 transition-colors"
-                            title="Ampliar imagen"
-                          >
-                            ${imgs.length > 1 ? `${curIdx + 1} / ${imgs.length} • ` : ''}Ampliar ⤢
-                          </button>
-                        ` : ''}
-                        <button
-                          type="button"
-                          onclick="toggleSaveProperty('${prop.id}')"
-                          class="w-9 h-9 rounded-xl bg-navy-950/75 hover:bg-navy-950 flex items-center justify-center transition-colors"
-                          aria-label="Save property"
-                          title="${isSaved ? 'Remove from saved' : 'Save to Client Portal'}"
-                        >
-                          <svg class="w-4 h-4 ${isSaved ? 'text-gold-400 fill-gold-400' : 'text-white'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-
-                    ${imgs.length > 1 ? `
-                      <div class="relative z-10 px-3 flex items-center justify-between pointer-events-none">
-                        <button
-                          type="button"
-                          onclick="cyclePropertyPhoto('${prop.id}', -1)"
-                          class="pointer-events-auto w-8 h-8 rounded-full bg-navy-950/75 hover:bg-navy-950 text-white flex items-center justify-center border border-white/15 transition-colors"
-                          aria-label="Previous photo"
-                        >‹</button>
-                        <button
-                          type="button"
-                          onclick="cyclePropertyPhoto('${prop.id}', 1)"
-                          class="pointer-events-auto w-8 h-8 rounded-full bg-navy-950/75 hover:bg-navy-950 text-white flex items-center justify-center border border-white/15 transition-colors"
-                          aria-label="Next photo"
-                        >›</button>
-                      </div>
-                    ` : ''}
-
-                    <div class="relative z-10 p-5 pt-2">
-                      <div class="flex items-center gap-1.5 text-xs text-slate-200 font-medium">
-                        <svg class="w-3.5 h-3.5 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                        <span>${prop.region}, Panama</span>
-                      </div>
-                      <p class="font-serif text-2xl font-bold text-white mt-0.5">${prop.price}</p>
-                    </div>
+                    <button
+                      type="button"
+                      onclick="toggleSaveProperty('${prop.id}')"
+                      class="w-9 h-9 rounded-xl bg-navy-950/75 hover:bg-navy-950 flex items-center justify-center transition-colors"
+                      aria-label="Save property"
+                      title="${isSaved ? 'Remove from saved' : 'Save to Client Portal'}"
+                    >
+                      <svg class="w-4 h-4 ${isSaved ? 'text-gold-400 fill-gold-400' : 'text-white'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                      </svg>
+                    </button>
                   </div>
-                `;
-              })()}
+                </div>
 
-              <!-- Property Body -->
+                ${imgs.length > 1 ? `
+                  <div class="relative z-10 px-3 flex items-center justify-between pointer-events-none">
+                    <button
+                      type="button"
+                      onclick="cyclePropertyPhoto('${prop.id}', -1)"
+                      class="pointer-events-auto w-8 h-8 rounded-full bg-navy-950/75 hover:bg-navy-950 text-white flex items-center justify-center border border-white/15 transition-colors"
+                      aria-label="Previous photo"
+                    >‹</button>
+                    <button
+                      type="button"
+                      onclick="cyclePropertyPhoto('${prop.id}', 1)"
+                      class="pointer-events-auto w-8 h-8 rounded-full bg-navy-950/75 hover:bg-navy-950 text-white flex items-center justify-center border border-white/15 transition-colors"
+                      aria-label="Next photo"
+                    >›</button>
+                  </div>
+                ` : ''}
+
+                <div class="relative z-10 p-5 pt-2">
+                  <div class="flex items-center gap-1.5 text-xs text-slate-200 font-medium">
+                    <span>${prop.region}, Panama</span>
+                  </div>
+                  <p class="font-serif text-2xl font-bold text-white mt-0.5">${prop.price}</p>
+                </div>
+              </div>
+
               <div class="p-6">
                 <h3 class="font-serif text-lg font-bold text-navy-900 group-hover:text-gold-600 transition-colors">
                   ${prop.title}
                 </h3>
                 <p class="text-xs font-semibold text-slate-500 mt-1">${prop.specs}</p>
-                <p class="text-xs sm:text-sm text-slate-600 mt-3 leading-relaxed">
-                  ${prop.description}
-                </p>
+                <p class="text-xs sm:text-sm text-slate-600 mt-3 leading-relaxed">${prop.description}</p>
 
-                <!-- Tags -->
                 <div class="flex flex-wrap gap-1.5 mt-4">
                   ${prop.tags.map(tag => `
-                    <span class="px-2.5 py-1 rounded-md bg-sand-100 text-slate-700 text-[11px] font-medium">
-                      ${tag}
-                    </span>
+                    <span class="px-2.5 py-1 rounded-md bg-sand-100 text-slate-700 text-[11px] font-medium">${tag}</span>
                   `).join('')}
                 </div>
               </div>
             </div>
 
-            <!-- Action Footer -->
             <div class="px-6 pb-6 pt-2">
               <button
                 onclick="selectPropertyForBooking('${prop.id}')"
@@ -1478,9 +1336,6 @@
       }).join('');
     }
 
-    // =========================================================================
-    // 8. BOOKING ENGINE & CONTEXT PRE-FILLING
-    // =========================================================================
     function selectVisaForBooking(visaName) {
       selectedBookingContext = `Visa Program: ${visaName}`;
       openBookingModal('Legal Services & Visa Processing', 'Panama City', selectedBookingContext);
@@ -1512,7 +1367,6 @@
         selectedBookingContext = contextText;
         contextLabel.textContent = contextText;
         contextBanner.classList.remove('hidden');
-        // Also sync to inline booking form
         document.getElementById('inline-context-text').textContent = contextText;
         document.getElementById('inline-context-box').classList.remove('hidden');
       } else {
@@ -1537,7 +1391,6 @@
 
     function handleBookingSubmit(event, source) {
       event.preventDefault();
-
       let service, regions, date, time, format, clientName, email, phone, notes;
 
       if (source === 'inline') {
@@ -1584,7 +1437,6 @@
       updatePortalUI();
       showReceiptModal(newBooking);
 
-      // Reset text fields
       if (source === 'inline') {
         document.getElementById('inline-name').value = '';
         document.getElementById('inline-email').value = '';
@@ -1622,14 +1474,9 @@
           <span class="text-slate-500">Format:</span>
           <span class="font-semibold text-navy-900 text-right">${booking.format}</span>
         </div>
-        <div class="pt-1 text-xs text-slate-600 space-y-1">
-          <p class="font-bold text-navy-900">Trademark International Group Concierge:</p>
-          <p>Phone / WhatsApp: <a href="tel:+50768637794" class="font-semibold text-navy-900 underline">507-6863-7794</a></p>
-          <p>Email: <a href="mailto:Trademarkintgroup@gmail.com" class="font-semibold text-navy-900 underline">Trademarkintgroup@gmail.com</a></p>
-        </div>
       `;
 
-      lastReceiptText = `Trademark International Group Appointment (${booking.ref})\nClient: ${booking.clientName}\nService: ${booking.service}\nRegions: ${booking.regions}\nWhen: ${booking.date} at ${booking.time}\nFormat: ${booking.format}\nDirect Phone / WhatsApp: +507 6863-7794\nEmail: Trademarkintgroup@gmail.com`;
+      lastReceiptText = `Trademark International Group Appointment (${booking.ref})\nClient: ${booking.clientName}\nService: ${booking.service}\nRegions: ${booking.regions}\nWhen: ${booking.date} at ${booking.time}\nFormat: ${booking.format}`;
 
       const modal = document.getElementById('receipt-modal');
       modal.classList.remove('hidden');
@@ -1654,20 +1501,6 @@
       copyTextToClipboard(lastReceiptText, 'Calendar summary copied to clipboard.');
     }
 
-    function copyReceiptSummary() {
-      const textarea = document.createElement('textarea');
-      textarea.value = lastReceiptText;
-      document.body.appendChild(textarea);
-      textarea.select();
-      try {
-        document.execCommand('copy');
-        showToast('Calendar summary copied to clipboard.');
-      } catch (err) {
-        showToast('Unable to copy summary automatically.');
-      }
-      document.body.removeChild(textarea);
-    }
-
     function closeReceiptAndOpenPortal() {
       const modal = document.getElementById('receipt-modal');
       modal.classList.add('hidden');
@@ -1675,9 +1508,6 @@
       togglePortalDrawer(true);
     }
 
-    // =========================================================================
-    // 9. CLIENT PORTAL DRAWER ("MY SAVED & BOOKINGS")
-    // =========================================================================
     let currentPortalTab = 'bookings';
 
     function togglePortalDrawer(open) {
@@ -1768,9 +1598,6 @@
       }
     }
 
-    // =========================================================================
-    // 10. MOBILE MENU & TOAST NOTIFICATIONS
-    // =========================================================================
     function toggleMobileMenu() {
       const menu = document.getElementById('mobile-menu');
       menu.classList.toggle('hidden');
